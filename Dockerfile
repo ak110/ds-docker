@@ -276,7 +276,7 @@ RUN set -x \
 ARG RUN_USER=user
 ARG RUN_UID=1000
 RUN set -x \
-    && useradd --create-home --shell=/bin/bash --uid=$RUN_UID $RUN_USER
+    && useradd --create-home --shell=/bin/bash --uid=$RUN_UID --groups=sudo $RUN_USER
 
 RUN set -x \
     # sshd用ディレクトリ作成
@@ -294,7 +294,7 @@ RUN set -x \
     && echo 'Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy PIP_TRUSTED_HOST PIP_INDEX_URL"' > /etc/sudoers.d/docker \
     && echo 'Defaults always_set_home' >> /etc/sudoers.d/docker \
     # $RUN_USERをパスワード無しでsudoできるようにしておく
-    && echo $RUN_USER ALL=\(ALL\) NOPASSWD:ALL >> /etc/sudoers.d/docker \
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/docker \
     && chmod 0440 /etc/sudoers.d/* \
     && visudo --check \
     # # completion

@@ -2,8 +2,11 @@ def test_run():
     import lightgbm as lgb
     import sklearn.datasets
 
-    data = sklearn.datasets.load_boston()
+    data = sklearn.datasets.fetch_openml(name="house_prices", as_frame=True)
     X, y = data.data, data.target  # pylint: disable=no-member
+
+    for c in X.select_dtypes(include=object).columns:
+        X[c] = X[c].astype("category")
 
     lgb_train = lgb.Dataset(X[:100], y[:100])
     lgb_eval = lgb.Dataset(X[100:], y[100:], reference=lgb_train)
