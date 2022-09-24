@@ -282,9 +282,9 @@ RUN set -x \
     # sshd用ディレクトリ作成
     && mkdir --mode=744 /var/run/sshd \
     # sshd用設定(~/.ssh/environmentを読む、KeepAliveする)
-    && echo 'PermitUserEnvironment yes' > /etc/ssh/sshd_config.d/aiserver.conf \
-    && echo 'ClientAliveInterval 15' >> /etc/ssh/sshd_config.d/aiserver.conf \
-    && echo 'ClientAliveCountMax 10' >> /etc/ssh/sshd_config.d/aiserver.conf \
+    && echo 'PermitUserEnvironment yes' > /etc/ssh/sshd_config.d/docker.conf \
+    && echo 'ClientAliveInterval 15' >> /etc/ssh/sshd_config.d/docker.conf \
+    && echo 'ClientAliveCountMax 10' >> /etc/ssh/sshd_config.d/docker.conf \
     && /usr/sbin/sshd -t \
     # 環境変数設定
     && echo 'export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH' > /etc/profile.d/docker.sh \
