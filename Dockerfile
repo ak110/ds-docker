@@ -1,5 +1,6 @@
 # https://hub.docker.com/r/nvidia/cuda/tags
 FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu22.04
+ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8
@@ -135,23 +136,22 @@ RUN set -x \
     ;
 RUN set -x \
     && pip install --no-cache-dir \
+    keras-cv \
     onnxmltools \
     segmentation-models \
     tensorboard \
     tensorboard-plugin-profile \
+    tensorflow \
     tensorflow-addons[tensorflow] \
     tensorflow-datasets \
     tensorflow-hub \
-    tensorflow \
     tf2onnx \
     ;
-
-ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
 
 # TFがエラーにならないことの確認
 RUN set -x \
     && python3 -c "import tensorflow as tf;print(tf.config.list_physical_devices('GPU'))" 2>&1 | tee /tmp/check.log \
-    && (if grep -q 'Could not load dynamic library' /tmp/check.log  ; then false ; else echo OK! ; fi) \
+    && grep -q 'failed call to cuInit: CUDA_ERROR_NO_DEVICE' /tmp/check.log \
     && rm -f /tmp/check.log
 
 RUN set -x \
