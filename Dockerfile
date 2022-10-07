@@ -38,6 +38,7 @@ RUN set -ex \
     git-lfs \
     graphviz \
     language-pack-ja \
+    less \
     libgl1 \
     libglib2.0-0 \
     libgomp1 \
@@ -50,8 +51,8 @@ RUN set -ex \
     openssh-server \
     p7zip-full \
     pandoc \
-    python3-pip \
     python${PYTHON_VERSION}-full \
+    python3-pip \
     sudo \
     texlive-fonts-recommended \
     texlive-plain-generic \
