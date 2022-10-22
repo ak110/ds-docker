@@ -51,6 +51,7 @@ RUN set -ex \
     openssh-server \
     p7zip-full \
     pandoc \
+    python${PYTHON_VERSION}-dev \
     python${PYTHON_VERSION}-full \
     python3-pip \
     sudo \
@@ -98,6 +99,7 @@ RUN set -x \
     imgaug \
     imgdup \
     iterative-stratification \
+    jaconv \
     janome \
     japanize-matplotlib \
     joblib \
@@ -105,6 +107,7 @@ RUN set -x \
     lightgbm \
     matplotlib \
     mecab-python3 \
+    mojimoji \
     motpy \
     natsort \
     numba \
