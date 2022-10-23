@@ -31,7 +31,7 @@ ARG PYTHON_VERSION=3.10
 
 # libgl1 libglib2.0-0 libsm6 libxrender1 libxext6: opencv用
 # libgomp1: LightGBM用
-RUN set -ex \
+RUN set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
     git \
@@ -66,10 +66,20 @@ RUN set -ex \
     && rm -rf /var/lib/apt/lists/*
 
 # python
-RUN set -ex \
+RUN set -x \
     && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_VERSION} 1 \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
-    && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1
+
+# Docker (DooD用。--volume="/var/run/docker.sock:/var/run/docker.sock" をつけて実行する。)
+RUN set -x \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  \
+    && apt-get update \
+    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-compose-plugin \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # # devpi-server用
 # ARG PIP_TRUSTED_HOST=""
@@ -78,7 +88,7 @@ RUN set -ex \
 # ARG PIP_TIMEOUT=180
 # ARG PIP_DEFAULT_TIMEOUT=180
 
-RUN set -ex \
+RUN set -x \
     && pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir wheel cython
 RUN set -x \
