@@ -34,6 +34,8 @@ ARG PYTHON_VERSION=3.10
 RUN set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
+    command-not-found \
+    connect-proxy \
     git \
     git-lfs \
     graphviz \
@@ -47,6 +49,7 @@ RUN set -x \
     libxext6 \
     libxrender1 \
     locate \
+    netcat-openbsd \
     openssh-client \
     openssh-server \
     p7zip-full \
