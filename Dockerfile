@@ -34,8 +34,10 @@ ARG PYTHON_VERSION=3.10
 RUN set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
+    bash-completion \
     command-not-found \
     connect-proxy \
+    dialog \
     git \
     git-lfs \
     graphviz \
