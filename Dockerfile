@@ -1,3 +1,5 @@
+FROM node:lts as node
+
 # https://hub.docker.com/r/nvidia/cuda/tags
 FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
@@ -245,16 +247,19 @@ RUN set -x \
 # RUN set -x \
 #     && python3 -m unidic download
 
-# # nodejs
-# ARG NODEJS_VERSION=v12.18.3
-# RUN set -x \
-#     && wget -q -O- https://nodejs.org/dist/$NODEJS_VERSION/node-$NODEJS_VERSION-linux-x64.tar.xz | tar xJ -C /tmp/ \
-#     && mv /tmp/node-$NODEJS_VERSION-linux-x64/bin/* /usr/local/bin/ \
-#     && mv /tmp/node-$NODEJS_VERSION-linux-x64/lib/* /usr/local/lib/ \
-#     && mv /tmp/node-$NODEJS_VERSION-linux-x64/include/* /usr/local/include/ \
-#     && mv /tmp/node-$NODEJS_VERSION-linux-x64/share/doc/* /usr/local/share/doc/ \
-#     && mv /tmp/node-$NODEJS_VERSION-linux-x64/share/man/man1/* /usr/local/share/man/man1 \
-#     && rm -rf /tmp/node-$NODEJS_VERSION-linux-x64
+# nodejs
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
+COPY --from=node /usr/local/include/node/ /usr/local/include/node/
+COPY --from=node /usr/local/share/doc/node/ /usr/local/share/doc/node/
+COPY --from=node /usr/local/share/man/man1/node.1 /usr/local/share/man/man1/
+RUN set -x \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
+    && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+    && ln -s /usr/local/lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack \
+    && npm update -g \
+    && npm install -g pyright npm-check-updates prettier eslint eslint-config-prettier
 
 # jupyter関連
 RUN set -x \
