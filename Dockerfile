@@ -259,7 +259,7 @@ RUN set -x \
     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
     && ln -s /usr/local/lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack \
     && npm update -g \
-    && npm install -g pyright npm-check-updates prettier eslint eslint-config-prettier
+    && npm install -g pyright npm-check-updates prettier eslint
 
 # jupyter関連
 RUN set -x \
