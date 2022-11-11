@@ -226,7 +226,7 @@ RUN set -x \
     spacy \
     tokenizers \
     torchtext \
-    transformers[ja] \
+    transformers[ja,sentencepiece] \
     torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 
 # PyTorchがエラーにならないことの確認
