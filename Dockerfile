@@ -217,7 +217,7 @@ RUN set -x \
     # PyTorchが既にインストールされてしまっていないことの確認
     && test $(pip freeze | grep ^torch== | wc -l) -eq 0 \
     # PyTorchとそれに依存するものたちのインストール
-    && pip install --no-cache-dir torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116 \
+    && pip install --no-cache-dir torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117 \
     && pip install --no-cache-dir \
     datasets \
     diffusers \
@@ -229,7 +229,7 @@ RUN set -x \
     tokenizers \
     torchtext \
     transformers[ja,sentencepiece] \
-    torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+    torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
 
 # PyTorchがエラーにならないことの確認
 RUN set -x \
