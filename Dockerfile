@@ -1,7 +1,7 @@
 FROM node:lts as node
 
 # https://hub.docker.com/r/nvidia/cuda/tags
-FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
 
 ARG DEBIAN_FRONTEND=noninteractive
