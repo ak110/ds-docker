@@ -1,16 +1,22 @@
+# syntax=docker/dockerfile:1
+
 FROM node:lts as node
 
 # https://hub.docker.com/r/nvidia/cuda/tags
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
-ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8
 RUN set -x \
     && rm /etc/apt/apt.conf.d/docker-gzip-indexes \
-    && rm /etc/apt/apt.conf.d/docker-no-languages
+    && rm /etc/apt/apt.conf.d/docker-no-languages \
+    # # libcuda.so.1を参照できるようにする
+    && echo '/usr/local/cuda/compat' > /etc/ld.so.conf.d/nvidia-compat.conf \
+    && ldconfig
 
-RUN set -x \
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+    --mount=type=cache,target=/var/cache/apt/archives \
+    set -x \
     && sed -ie 's@http://archive.ubuntu.com/ubuntu/@http://ftp.riken.go.jp/Linux/ubuntu/@g' /etc/apt/sources.list \
     && sed -ie 's@^deb-src@# deb-src@g' /etc/apt/sources.list \
     && apt-get update \
@@ -23,17 +29,20 @@ RUN set -x \
     software-properties-common \
     wget \
     && locale-gen ja_JP.UTF-8 \
-    && update-locale LANG=ja_JP.UTF-8 LANGUAGE='ja_JP:ja' \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && update-locale LANG=ja_JP.UTF-8 LANGUAGE='ja_JP:ja'
 
-RUN yes | unminimize
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+    --mount=type=cache,target=/var/cache/apt/archives \
+    set -x \
+    && yes | unminimize
 
 ARG PYTHON_VERSION=3.10
 
 # libgl1 libglib2.0-0 libsm6 libxrender1 libxext6: opencv用
 # libgomp1: LightGBM用
-RUN set -x \
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+    --mount=type=cache,target=/var/cache/apt/archives \
+    set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
     bash-completion \
@@ -69,24 +78,19 @@ RUN set -x \
     tmuxinator \
     vim \
     zip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# python
-RUN set -x \
     && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_VERSION} 1 \
     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1
 
 # Docker (DooD用。--volume="/var/run/docker.sock:/var/run/docker.sock" をつけて実行する。)
-RUN set -x \
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+    --mount=type=cache,target=/var/cache/apt/archives \
+    set -x \
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  \
     && apt-get update \
-    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-compose-plugin \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 # # devpi-server用
 # ARG PIP_TRUSTED_HOST=""
@@ -95,12 +99,12 @@ RUN set -x \
 # ARG PIP_TIMEOUT=180
 # ARG PIP_DEFAULT_TIMEOUT=180
 
-RUN set -x \
-    && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir wheel cython
-RUN set -x \
-    && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install --upgrade pip \
+    && pip install wheel cython
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install --upgrade pip \
+    && pip install \
     albumentations \
     av \
     bashplotlib \
@@ -155,8 +159,8 @@ RUN set -x \
     xlrd \
     xlwt \
     ;
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     keras-cv \
     onnxmltools \
     segmentation-models \
@@ -175,50 +179,50 @@ RUN set -x \
     && grep -q 'failed call to cuInit: CUDA_ERROR_NO_DEVICE' /tmp/check.log \
     && rm -f /tmp/check.log
 
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     pre-commit \
     pyfltr \
     types-Pillow \
     types-PyYAML \
     types-requests \
     ;
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     pip-tools \
     pipdeptree \
     pipenv \
     poetry \
     ;
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     Flask \
     Flask-Login \
     Flask-Migrate \
     Flask-Restless \
     Flask-SQLAlchemy \
     ;
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     sphinx \
     sphinx-autobuild \
     sphinx-autodoc-typehints \
     sphinx_rtd_theme \
     ;
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     kaggle \
     signate \
     stickytape \
     ;
 
 # PyTorch関連: https://pytorch.org/get-started/locally/
-RUN set -x \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
     # PyTorchが既にインストールされてしまっていないことの確認
     && test $(pip freeze | grep ^torch== | wc -l) -eq 0 \
     # PyTorchとそれに依存するものたちのインストール
-    && pip install --no-cache-dir torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117 \
-    && pip install --no-cache-dir \
+    && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117 \
+    && pip install \
     datasets \
     diffusers \
     faiss-gpu \
@@ -253,7 +257,7 @@ COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
 COPY --from=node /usr/local/include/node/ /usr/local/include/node/
 COPY --from=node /usr/local/share/doc/node/ /usr/local/share/doc/node/
 COPY --from=node /usr/local/share/man/man1/node.1 /usr/local/share/man/man1/
-RUN set -x \
+RUN --mount=type=cache,target=/root/.npm set -x \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
@@ -262,8 +266,8 @@ RUN set -x \
     && npm install -g pyright npm-check-updates prettier eslint
 
 # jupyter関連
-RUN set -x \
-    && pip install --no-cache-dir \
+RUN --mount=type=cache,target=/root/.cache/pip set -x \
+    && pip install \
     jupyterlab \
     ;
 
@@ -272,23 +276,23 @@ RUN set -x \
 # RUN set -x \
 #     && mkdir -p /etc/OpenCL/vendors \
 #     && echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd \
-#     && pip install --no-cache-dir --no-binary :all: --install-option=--gpu lightgbm || (cat /root/LightGBM_compilation.log && false)
+#     && pip install --no-binary :all: --install-option=--gpu lightgbm || (cat /root/LightGBM_compilation.log && false)
 
 # # horovod
 # # 参考: https://github.com/horovod/horovod/blob/master/docker/horovod/Dockerfile
 # RUN set -x \
 #     && ldconfig /usr/local/cuda/lib64/stubs \
 #     && HOROVOD_WITH_MPI=1 HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_WITH_TENSORFLOW=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITH_MXNET=0 \
-#     pip install --no-cache-dir horovod \
+#     pip install horovod \
 #     && ldconfig
 
 # # 最後にPillow-SIMD
 # # → 2021/08/13現在メンテされてなさそう: <https://github.com/uploadcare/pillow-simd/issues/93>
 # #RUN set -x && \
-# #    CC="cc -mavx2" pip install --no-cache-dir --force-reinstall Pillow-SIMD
+# #    CC="cc -mavx2" pip install --force-reinstall Pillow-SIMD
 
 # # npm
-# RUN set -x \
+# RUN --mount=type=cache,target=/root/.npm set -x \
 #     && npm install -g pyright npm-check-updates
 
 # サイズは増えるけどやっておくと使うときに便利かもしれない諸々
@@ -323,8 +327,7 @@ RUN set -x \
     && visudo --check \
     # # completion
     # && poetry completions bash > /etc/bash_completion.d/poetry.bash-completion \
-    # # libcuda.so.1を参照できるようにする
-    # && echo '/usr/local/cuda/compat' > /etc/ld.so.conf.d/nvidia-compat.conf \
+    # 最後に念のため
     && ldconfig
 
 # sshd以外の使い方をするとき用環境変数色々
