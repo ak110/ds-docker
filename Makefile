@@ -1,6 +1,8 @@
 
 include .env
 
+export DOCKER_BUILDKIT ?= 1
+
 IMAGE_TAG ?= ds-docker
 
 BUILD_ARGS += --shm-size=1g
