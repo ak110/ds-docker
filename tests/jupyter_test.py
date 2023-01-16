@@ -10,7 +10,7 @@ def test_run(data_dir, tmpdir):
             "nbconvert",
             "--execute",
             "--to=pdf",
-            f"--output-dir='{str(tmpdir)}'",
+            f"--output-dir='{tmpdir}'",
             data_dir / "jupyter.ipynb",
         ],
         stdout=subprocess.PIPE,
