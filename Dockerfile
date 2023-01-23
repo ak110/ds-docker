@@ -132,6 +132,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     motpy \
     natsort \
     numba \
+    nvitop \
     opencv-python-headless \
     openpyxl \
     optuna \
