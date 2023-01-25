@@ -140,6 +140,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     pandas-profiling \
     pillow \
     plotly \
+    polars[all] \
     pycryptodome \
     pydot \
     pykalman \
