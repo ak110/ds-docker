@@ -1,15 +1,14 @@
 def test_run():
     import sklearn.datasets
+    import sklearn.model_selection
     import xgboost
 
-    data = sklearn.datasets.fetch_openml(name="house_prices", as_frame=True)
+    data = sklearn.datasets.load_iris(as_frame=True)
     X, y = data.data, data.target  # pylint: disable=no-member
-
-    for c in X.select_dtypes(include=object).columns:
-        X[c] = X[c].astype("category")
+    X_train, X_test, y_train, _ = sklearn.model_selection.train_test_split(X, y)
 
     xgb = xgboost.XGBRegressor(
         n_estimators=3, tree_method="hist", enable_categorical=True
     )
-    xgb.fit(X[:100], y[:100])
-    assert xgb.predict(X[100:]).shape == (len(X[100:]),)
+    xgb.fit(X_train, y_train)
+    assert xgb.predict(X_test).shape == (len(X_test),)
