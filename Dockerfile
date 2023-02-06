@@ -268,10 +268,18 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && npm install -g pyright npm-check-updates prettier eslint
 
 # jupyter関連
-RUN --mount=type=cache,target=/root/.cache/pip set -x \
+RUN --mount=type=cache,target=/root/.cache \
+    --mount=type=cache,target=/root/.npm \
+    set -x \
     && pip install \
-    jupyterlab \
-    ;
+    ipywidgets \
+    jupyter-dash \
+    jupyterlab-code-formatter \
+    jupyterlab-git \
+    jupyterlab-language-pack-ja-JP \
+    jupyterlab-widgets \
+    jupyterlab\>=3.4 \
+    && (jupyter lab build --dev-build=False --minimize=False --debug-log-path=/tmp/jupyterlab-build.log || (cat /tmp/jupyterlab-build.log && false))
 
 # # LightGBM
 # # 参考: https://github.com/microsoft/LightGBM/issues/586
