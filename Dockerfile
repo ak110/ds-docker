@@ -67,6 +67,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     openssh-server \
     p7zip-full \
     pandoc \
+    psmisc \
     python${PYTHON_VERSION}-dev \
     python${PYTHON_VERSION}-full \
     python3-pip \
