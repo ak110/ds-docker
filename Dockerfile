@@ -91,7 +91,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  \
     && apt-get update \
-    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # # devpi-server用
 # ARG PIP_TRUSTED_HOST=""
