@@ -20,6 +20,7 @@ def test_run():
             self.valid_ds: TensorDataset | None = None
 
         def setup(self, stage=None):
+            del stage
             X_train = torch.rand(100, 1, 28, 28)
             y_train = torch.randint(0, 10, size=(100,))
             X_valid = torch.rand(20, 1, 28, 28)
@@ -69,7 +70,12 @@ def test_run():
     dm = LitDataModule()
     model = LitClassifier()
     trainer = pl.Trainer(
-        gpus=None, max_epochs=1, logger=False, enable_checkpointing=False
+        accelerator="auto",
+        strategy="auto",
+        devices="auto",
+        max_epochs=1,
+        logger=False,
+        enable_checkpointing=False,
     )
     trainer.fit(model, datamodule=dm)
     assert "train_loss" in trainer.logged_metrics
