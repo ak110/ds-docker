@@ -199,11 +199,13 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     ;
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
-    Flask \
-    Flask-Login \
-    Flask-Migrate \
-    Flask-Restless \
-    Flask-SQLAlchemy \
+    flask \
+    flask-login \
+    flask-migrate \
+    flask-sqlalchemy \
+    asyncio \
+    fastapi[all] \
+    sse-starlette \
     ;
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
@@ -226,16 +228,19 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     # PyTorchとそれに依存するものたちのインストール
     && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117 \
     && pip install \
+    accelerate \
     datasets \
     diffusers \
     faiss-gpu \
     ginza \
     lightning \
     pretrainedmodels \
+    safetensors \
     spacy \
     tokenizers \
     torchtext \
     transformers[ja,sentencepiece] \
+    triton \
     torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
 
 # PyTorchがエラーにならないことの確認
