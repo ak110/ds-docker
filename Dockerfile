@@ -46,6 +46,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
     bash-completion \
+    cargo \
     command-not-found \
     connect-proxy \
     dialog \
