@@ -200,7 +200,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     ;
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
-    flask \
+    flask\<2.3 \
     flask-login \
     flask-migrate \
     flask-sqlalchemy \

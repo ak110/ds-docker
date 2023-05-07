@@ -42,7 +42,7 @@ test:
 		--volume="$(CURDIR):/work:ro" \
 		--workdir="/work" \
 		--env="GPU=$(GPU)" \
-		$(IMAGE_TAG) bash -cx "pyfltr"
+		$(IMAGE_TAG) bash -cx "pip freeze ; pyfltr"
 
 shell:
 	docker run --rm --interactive --tty $(RUN_GPU_ARGS) \
