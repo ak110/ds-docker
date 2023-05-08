@@ -235,6 +235,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     diffusers \
     faiss-gpu \
     ginza \
+    jmespath \
     lightning \
     pretrainedmodels \
     safetensors \
