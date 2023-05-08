@@ -230,6 +230,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117 \
     && pip install \
     accelerate \
+    bitsandbytes \
     datasets \
     diffusers \
     faiss-gpu \
