@@ -236,7 +236,10 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     faiss-gpu \
     ginza \
     jmespath \
+    langchain \
     lightning \
+    llama-index \
+    openai \
     pretrainedmodels \
     safetensors \
     spacy \
