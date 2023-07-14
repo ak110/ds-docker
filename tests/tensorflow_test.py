@@ -20,9 +20,9 @@ def test_run(tmpdir):
     tf.keras.utils.plot_model(model, str(tmpdir / "model.png"))
 
     model.fit(X_train, y_train, batch_size=10, epochs=2)
-    model.save(str(tmpdir / "model.h5"))
+    model.save(str(tmpdir / "model.keras"))
 
-    model = tf.keras.models.load_model(str(tmpdir / "model.h5"))
+    model = tf.keras.models.load_model(str(tmpdir / "model.keras"))
     assert model.predict(X_train).shape == (len(X_train), 1)
 
 

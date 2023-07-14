@@ -29,7 +29,7 @@ def test_run():
         params,
         lgb_train,
         num_boost_round=2,
-        valid_sets=lgb_eval,
+        valid_sets=[lgb_eval],
         callbacks=[lgb.early_stopping(stopping_rounds=1)],
     )
     assert gbm.best_iteration == 1
