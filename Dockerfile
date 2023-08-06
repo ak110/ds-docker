@@ -233,6 +233,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     bitsandbytes \
     datasets \
     diffusers \
+    einops \
     faiss-gpu \
     ginza \
     jmespath \
