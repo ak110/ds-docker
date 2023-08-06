@@ -114,6 +114,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     catboost \
     category_encoders \
     cookiecutter \
+    diskcache \
     eli5 \
     ensemble-boxes \
     feather-format \
