@@ -228,7 +228,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     # PyTorchが既にインストールされてしまっていないことの確認
     && test $(pip freeze | grep ^torch== | wc -l) -eq 0 \
     # PyTorchとそれに依存するものたちのインストール
-    && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117 \
+    && pip install torch torchtext torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118 \
     && pip install \
     accelerate \
     bitsandbytes \
