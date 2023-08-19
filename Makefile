@@ -1,17 +1,46 @@
 
 include .env
 
-export DOCKER_BUILDKIT ?= 1
-
-IMAGE_TAG ?= ds-docker
+ifdef http_proxy
+export http_proxy
+BUILD_ARGS += --build-arg=http_proxy
+RUN_ARGS += --env=http_proxy
+endif
+ifdef https_proxy
+export https_proxy
+BUILD_ARGS += --build-arg=https_proxy
+RUN_ARGS += --env=https_proxy
+endif
+ifdef no_proxy
+export no_proxy
+BUILD_ARGS += --build-arg=no_proxy
+RUN_ARGS += --env=no_proxy
+endif
+ifdef APT_PROXY
+export APT_PROXY
+BUILD_ARGS += --build-arg=APT_PROXY
+endif
+ifdef PIP_TRUSTED_HOST
+export PIP_TRUSTED_HOST
+BUILD_ARGS += --build-arg=PIP_TRUSTED_HOST
+endif
+ifdef PIP_INDEX_URL
+export PIP_INDEX_URL
+BUILD_ARGS += --build-arg=PIP_INDEX_URL
+endif
 
 BUILD_ARGS += --shm-size=1g
+
 GPU ?= none
 ifeq ($(GPU),none)
     RUN_GPU_ARGS = $(RUN_ARGS)
 else
     RUN_GPU_ARGS = $(RUN_ARGS) --gpus='"device=$(GPU)"'
 endif
+
+export DOCKER_BUILDKIT=1
+
+IMAGE_TAG ?= ds-docker
 
 help:
 	@cat Makefile
