@@ -157,6 +157,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     scikit-image \
     scikit-learn \
     seaborn \
+    solrpy \
     sympy \
     tabulate \
     tqdm \
