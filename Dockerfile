@@ -94,12 +94,12 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && apt-get update \
     && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# # devpi-server用
-# ARG PIP_TRUSTED_HOST=""
-# ARG PIP_INDEX_URL=""
-# ARG PIP_RETRIES=10
-# ARG PIP_TIMEOUT=180
-# ARG PIP_DEFAULT_TIMEOUT=180
+# devpi-server用
+ARG PIP_TRUSTED_HOST=""
+ARG PIP_INDEX_URL=""
+ARG PIP_RETRIES=10
+ARG PIP_TIMEOUT=180
+ARG PIP_DEFAULT_TIMEOUT=180
 
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install --upgrade pip \
