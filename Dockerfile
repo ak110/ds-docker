@@ -241,14 +241,14 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     jmespath \
     langchain \
     lightning \
-    llama-index \
+    llama-index\>=0.8.8 \
     openai \
     pretrainedmodels \
     safetensors \
     spacy \
     tokenizers \
     torchtext \
-    transformers[ja,sentencepiece] \
+    transformers[ja,sentencepiece]\>=4.32.0 \
     triton \
     torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
 
