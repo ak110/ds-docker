@@ -36,7 +36,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     set -x \
     && yes | unminimize
 
-ARG PYTHON_VERSION=3.10
+ARG PYTHON_VERSION=3.11
 
 # libgl1 libglib2.0-0 libsm6 libxrender1 libxext6: opencv用
 # libgomp1: LightGBM用
