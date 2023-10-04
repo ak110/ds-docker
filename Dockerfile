@@ -247,9 +247,11 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     pretrainedmodels \
     safetensors \
     spacy \
+    tiktoken \
     tokenizers \
     torchtext \
-    transformers[ja,sentencepiece]\>=4.32.0 \
+    transformers-stream-generator \
+    transformers[ja,sentencepiece]\>=4.34.0 \
     triton \
     torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
 
