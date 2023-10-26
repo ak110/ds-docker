@@ -109,6 +109,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
     albumentations \
     av \
+    azure-identity \
     bashplotlib \
     better_exceptions \
     catboost \
@@ -134,6 +135,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     mojimoji \
     motpy \
     natsort \
+    nltk \
     numba \
     nvitop \
     opencv-python-headless \
@@ -262,14 +264,14 @@ RUN set -x \
     && grep -q "RuntimeError: No CUDA GPUs are available" /tmp/check.log \
     && rm -f /tmp/check.log
 
-# # 辞書など
-# # https://github.com/nltk/nltk/issues/1825
-# RUN set -x \
-#     && python3 -m nltk.downloader --dir=/usr/local/share/nltk_data popular --quiet --exit-on-error
-# RUN set -x \
-#     && python3 -m spacy download en_core_web_sm --no-cache
-# RUN set -x \
-#     && python3 -m unidic download
+# 辞書など
+# https://github.com/nltk/nltk/issues/1825
+RUN set -x \
+    && python3 -m nltk.downloader --dir=/usr/local/share/nltk_data popular --quiet --exit-on-error
+RUN set -x \
+    && python3 -m spacy download en_core_web_sm --no-cache
+RUN set -x \
+    && python3 -m unidic download
 
 # nodejs
 COPY --from=node /usr/local/bin/node /usr/local/bin/
