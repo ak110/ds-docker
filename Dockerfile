@@ -52,6 +52,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     dialog \
     git \
     git-lfs \
+    google-perftools \
     graphviz \
     language-pack-ja \
     less \
