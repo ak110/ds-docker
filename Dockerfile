@@ -190,10 +190,15 @@ RUN set -x \
 
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
+    pandas-stubs \
     pre-commit \
     pyfltr \
+    sqlalchemy-stubs \
+    types-Flask \
     types-Pillow \
     types-PyYAML \
+    types-Werkzeug \
+    types-click \
     types-requests \
     ;
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
