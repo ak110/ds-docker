@@ -47,7 +47,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && apt-get install --yes --no-install-recommends \
     bash-completion \
     cargo \
-    command-not-found \
     connect-proxy \
     dialog \
     git \
@@ -144,6 +143,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     optuna \
     pandas \
     pandas-profiling \
+    passlib \
     pillow \
     plotly \
     polars[all] \
