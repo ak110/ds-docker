@@ -257,11 +257,15 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     spacy \
     tiktoken \
     tokenizers \
+    torch \
+    torchaudio \
     torchtext \
+    torchvision \
     transformers-stream-generator \
     transformers[ja,sentencepiece]\>=4.34.0 \
     triton \
-    torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
+    unstructured[all-docs] \
+    --extra-index-url https://download.pytorch.org/whl/cu118
 
 # PyTorchがエラーにならないことの確認
 RUN set -x \
