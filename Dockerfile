@@ -245,7 +245,6 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     datasets \
     diffusers \
     einops \
-    faiss-gpu\>=1.7.2 \
     ginza \
     jmespath \
     langchain \
@@ -266,6 +265,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     triton \
     unstructured[all-docs] \
     --extra-index-url https://download.pytorch.org/whl/cu118
+    # faiss-gpu\>=1.7.2
 
 # PyTorchがエラーにならないことの確認
 RUN set -x \
