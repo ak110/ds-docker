@@ -175,7 +175,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     segmentation-models \
     tensorboard \
     tensorboard-plugin-profile \
-    tensorflow \
+    tensorflow~=2.14.0 \
     tensorflow-addons[tensorflow] \
     tensorflow-datasets \
     tensorflow-hub \
