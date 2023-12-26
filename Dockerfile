@@ -245,7 +245,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     datasets \
     diffusers \
     einops \
-    faiss-gpu \
+    faiss-gpu\>=1.7.2 \
     ginza \
     jmespath \
     langchain \
