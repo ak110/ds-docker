@@ -207,7 +207,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     pipdeptree \
     pipenv \
     poetry \
-    ;
+    && poetry self add poetry-plugin-export
 RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
     flask\<2.3 \
