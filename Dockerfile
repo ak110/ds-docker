@@ -72,6 +72,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     python${PYTHON_VERSION}-dev \
     python${PYTHON_VERSION}-full \
     python3-pip \
+    rsync \
     sudo \
     texlive-fonts-recommended \
     texlive-plain-generic \
