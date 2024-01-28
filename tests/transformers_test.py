@@ -6,4 +6,14 @@ def test_run():
         "cl-tohoku/bert-base-japanese", mecab_kwargs={"mecab_option": ipadic.MECAB_ARGS}
     )
     tokens = tokenizer.tokenize("すもももももももものうち")
-    assert tuple(tokens) == ("す", "##も", "##も", "も", "もも", "も", "もも", "の", "うち")
+    assert tuple(tokens) == (
+        "す",
+        "##も",
+        "##も",
+        "も",
+        "もも",
+        "も",
+        "もも",
+        "の",
+        "うち",
+    )
