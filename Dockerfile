@@ -165,6 +165,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     sympy \
     tabulate \
     tqdm \
+    ulid-py\>=1.1 \
     xgboost \
     xlrd \
     xlwt \
