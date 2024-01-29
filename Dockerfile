@@ -158,6 +158,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     python-utils \
     pyyaml \
     requests \
+    schedule \
     scikit-image \
     scikit-learn \
     seaborn \
