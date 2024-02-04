@@ -40,6 +40,7 @@ ARG PYTHON_VERSION=3.11
 
 # libgl1 libglib2.0-0 libsm6 libxrender1 libxext6: opencv用
 # libgomp1: LightGBM用
+# puppeteer用: libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libxcursor1 libgtk-3-0
 RUN --mount=type=cache,target=/var/lib/apt/lists \
     --mount=type=cache,target=/var/cache/apt/archives \
     set -x \
@@ -55,12 +56,27 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     graphviz \
     language-pack-ja \
     less \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcairo2 \
+    libcups2 \
+    libgbm1 \
     libgl1 \
     libglib2.0-0 \
     libgomp1 \
+    libgtk-3-0 \
+    libnss3 \
     libopencv-core-dev \
+    libpango-1.0-0 \
     libsm6 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
     libxext6 \
+    libxfixes3 \
+    libxkbcommon0 \
+    libxrandr2 \
     libxrender1 \
     locate \
     netcat-openbsd \
@@ -68,12 +84,16 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     openssh-server \
     p7zip-full \
     pandoc \
+    poppler-data \
+    poppler-utils \
     psmisc \
     python${PYTHON_VERSION}-dev \
     python${PYTHON_VERSION}-full \
     python3-pip \
     rsync \
     sudo \
+    tesseract-ocr \
+    tesseract-ocr-jpn \
     texlive-fonts-recommended \
     texlive-plain-generic \
     texlive-xetex \
