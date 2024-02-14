@@ -5,6 +5,10 @@ FROM node:lts as node
 # https://hub.docker.com/r/nvidia/cuda/tags
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
+# APTのキャッシュ https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md#example-cache-apt-packages
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; \
+    echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8
 RUN set -x \
@@ -14,8 +18,8 @@ RUN set -x \
     && echo '/usr/local/cuda/compat' > /etc/ld.so.conf.d/nvidia-compat.conf \
     && ldconfig
 
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-    --mount=type=cache,target=/var/cache/apt/archives \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
     && sed -ie 's@http://archive.ubuntu.com/ubuntu/@http://ftp.riken.go.jp/Linux/ubuntu/@g' /etc/apt/sources.list \
     && sed -ie 's@^deb-src@# deb-src@g' /etc/apt/sources.list \
@@ -31,8 +35,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && locale-gen ja_JP.UTF-8 \
     && update-locale LANG=ja_JP.UTF-8 LANGUAGE='ja_JP:ja'
 
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-    --mount=type=cache,target=/var/cache/apt/archives \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
     && yes | unminimize
 
@@ -41,8 +45,8 @@ ARG PYTHON_VERSION=3.11
 # libgl1 libglib2.0-0 libsm6 libxrender1 libxext6: opencv用
 # libgomp1: LightGBM用
 # puppeteer用: libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libxcursor1 libgtk-3-0
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-    --mount=type=cache,target=/var/cache/apt/archives \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
@@ -105,8 +109,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1
 
 # Docker (DooD用。--volume="/var/run/docker.sock:/var/run/docker.sock" をつけて実行する。)
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-    --mount=type=cache,target=/var/cache/apt/archives \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
