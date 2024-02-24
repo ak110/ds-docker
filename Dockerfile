@@ -45,14 +45,17 @@ ARG PYTHON_VERSION=3.11
 # libgl1 libglib2.0-0 libsm6 libxrender1 libxext6: opencv用
 # libgomp1: LightGBM用
 # puppeteer用: libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libxcursor1 libgtk-3-0
+# pyenv用: sudo apt install build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
     bash-completion \
+    build-essential \
     cargo \
     connect-proxy \
+    curl \
     dialog \
     git \
     git-lfs \
@@ -63,23 +66,32 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     libasound2 \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
+    libbz2-dev \
     libcairo2 \
     libcups2 \
+    libffi-dev \
     libgbm1 \
     libgl1 \
     libglib2.0-0 \
     libgomp1 \
     libgtk-3-0 \
+    liblzma-dev\
+    libncursesw5-dev \
     libnss3 \
     libopencv-core-dev \
     libpango-1.0-0 \
+    libreadline-dev \
     libsm6 \
+    libsqlite3-dev \
+    libssl-dev \
     libxcomposite1 \
     libxcursor1 \
     libxdamage1 \
     libxext6 \
     libxfixes3 \
     libxkbcommon0 \
+    libxml2-dev \
+    libxmlsec1-dev \
     libxrandr2 \
     libxrender1 \
     locate \
@@ -101,10 +113,13 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     texlive-fonts-recommended \
     texlive-plain-generic \
     texlive-xetex \
+    tk-dev \
     tmux \
     tmuxinator \
     vim \
+    xz-utils \
     zip \
+    zlib1g-dev \
     && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_VERSION} 1 \
     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1
 
