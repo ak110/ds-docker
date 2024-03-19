@@ -148,6 +148,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install --upgrade pip \
     && pip install \
     albumentations \
+    ansible \
     av \
     azure-identity \
     bashplotlib \
@@ -295,6 +296,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     openai \
     pretrainedmodels \
     safetensors \
+    sentence-transformers \
     spacy \
     tiktoken \
     tokenizers \
