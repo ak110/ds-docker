@@ -149,6 +149,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install \
     albumentations \
     ansible \
+    ansible-lint \
     av \
     azure-identity \
     bashplotlib \
