@@ -284,12 +284,15 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     && pip install torch torchtext torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118 \
     && pip install \
     accelerate \
+    anthropic \
     auto-gptq \
     bitsandbytes \
     datasets \
     diffusers \
     einops \
     ginza \
+    google-cloud-aiplatform \
+    google-generativeai \
     jmespath \
     langchain \
     lightning \
