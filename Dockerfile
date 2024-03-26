@@ -151,9 +151,11 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     ansible \
     ansible-lint \
     av \
+    awscli \
     azure-identity \
     bashplotlib \
     better_exceptions \
+    boto3 \
     catboost \
     category_encoders \
     cookiecutter \
