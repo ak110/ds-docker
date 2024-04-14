@@ -298,6 +298,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     jmespath \
     langchain \
     lightning \
+    litellm \
     llama-index\>=0.8.8 \
     openai \
     pretrainedmodels \
