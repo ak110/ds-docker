@@ -156,6 +156,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     bashplotlib \
     better_exceptions \
     boto3 \
+    businesstimedelta \
     catboost \
     category_encoders \
     cookiecutter \
@@ -163,6 +164,7 @@ RUN --mount=type=cache,target=/root/.cache/pip set -x \
     eli5 \
     ensemble-boxes \
     feather-format \
+    holidays \
     imageio \
     imbalanced-learn \
     imgaug \
