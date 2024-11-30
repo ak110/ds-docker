@@ -1,5 +1,5 @@
 [MASTER]
-extension-pkg-whitelist=numpy,cv2,torch
+extension-pkg-whitelist=numpy,cv2
 
 [MESSAGES CONTROL]
 disable=
@@ -30,4 +30,4 @@ disable=
 max-line-length=256
 
 [TYPECHECK]
-ignored-modules=cv2,torch
+ignored-modules=cv2,torch,tensorflow

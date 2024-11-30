@@ -11,7 +11,7 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean; \
     echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
 ARG DEBIAN_FRONTEND=noninteractive
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 RUN set -x \
     && rm /etc/apt/apt.conf.d/docker-gzip-indexes \
     && rm /etc/apt/apt.conf.d/docker-no-languages \
@@ -343,290 +343,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     && apt-get update \
     && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-# devpi-server用
-ARG PIP_TRUSTED_HOST=""
-ARG PIP_INDEX_URL=""
-ARG PIP_RETRIES=10
-ARG PIP_TIMEOUT=180
-ARG PIP_DEFAULT_TIMEOUT=180
-
-# pip
-RUN --mount=type=cache,target=/root/.cache set -ex \
-    && pip install --upgrade pip \
-    && pip install pip_system_certs wheel cython wrapt
-RUN --mount=type=cache,target=/root/.cache set -ex \
-    && pip install --upgrade pip \
-    && pip uninstall --yes distro-info \
-    && pip install distro-info==1.0
-    # ↑ https://stackoverflow.com/questions/75272737/error-invalid-version-0-23ubuntu1-package-distro-info
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install --upgrade pip \
-    && pip install \
-    albumentations \
-    ansible \
-    ansible-lint \
-    augmentor \
-    authlib\>=1.2 \
-    av \
-    azure-identity\>=1.15 \
-    bashplotlib \
-    bcrypt \
-    better_exceptions \
-    cairocffi \
-    catboost \
-    category_encoders \
-    cookiecutter \
-    cysignals \
-    diskcache \
-    eli5 \
-    ensemble-boxes \
-    fasteners \
-    fastprogress \
-    fastrlock \
-    feather-format \
-    fire \
-    guidance \
-    hyperopt \
-    imageio \
-    imbalanced-learn \
-    imgaug \
-    imgdup \
-    iterative-stratification \
-    janome \
-    japanize-matplotlib \
-    joblib \
-    jpholiday \
-    librosa \
-    matplotlib \
-    mecab-python3 \
-    motpy \
-    mpi4py \
-    msal\>=1.25 \
-    msgraph-sdk\>=1.0 \
-    natsort \
-    noise \
-    nose \
-    numba \
-    opencv-python-headless \
-    openpyxl \
-    optuna\>=1.3.0 \
-    pandas \
-    passlib \
-    pillow\>=8.2.0 \
-    plotly \
-    progressbar2 \
-    pycryptodome \
-    pydot \
-    pygments \
-    pykalman \
-    pyod \
-    pypandoc \
-    pytesseract \
-    python-datauri \
-    python-dotenv \
-    python-utils \
-    pytilpack \
-    pyyaml \
-    requests \
-    rgf-python \
-    safety \
-    sagemaker \
-    scikit-image \
-    scikit-learn \
-    scikit-optimize[plots] \
-    seaborn \
-    semantic-kernel \
-    sklearn-pandas\>=2.2.0 \
-    solrpy \
-    soundfile \
-    sympy \
-    tabulate \
-    tinydb \
-    tqdm \
-    ulid-py\>=1.1 \
-    xgboost\>=1.7.6 \
-    xlrd \
-    xlsxwriter \
-    xlwt \
-    yapf \
-    ;
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    cupy-cuda11x \
-    image-classifiers \
-    keras \
-    keras-cv \
-    keras2onnx \
-    onnxmltools \
-    segmentation-models \
-    tensorboard \
-    tensorboard-plugin-profile \
-    tensorflow-addons[tensorflow] \
-    tensorflow-datasets \
-    tensorflow-hub \
-    tensorflow[and-cuda]~=2.15.0 \
-    tensorpack \
-    tf2cv \
-    tf2onnx \
-    ;
-
-# TFがエラーにならないことの確認
-RUN set -x \
-    && python3 -c "import tensorflow as tf;print(tf.config.list_physical_devices('GPU'))" 2>&1 | tee /tmp/check.log \
-    && grep -q 'failed call to cuInit: CUDA_ERROR_NO_DEVICE' /tmp/check.log \
-    && rm -f /tmp/check.log
-
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    pandas-stubs \
-    pre-commit \
-    pyfltr \
-    sqlalchemy-stubs \
-    types-Flask \
-    types-Pillow \
-    types-PyYAML \
-    types-Werkzeug \
-    types-click \
-    types-requests \
-    ;
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    pip-tools \
-    pipdeptree \
-    pipenv \
-    poetry \
-    && poetry self add poetry-plugin-export
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    fastapi[all] \
-    flask \
-    flask-login \
-    flask-migrate \
-    flask-restless-ng\>=3.0 \
-    flask-sqlalchemy \
-    httpx \
-    sse-starlette \
-    ;
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    sphinx \
-    sphinx-autobuild \
-    sphinx-autodoc-typehints \
-    sphinx_rtd_theme \
-    ;
-    RUN --mount=type=cache,target=/root/.cache set -x \
-        && pip install \
-        anthropic \
-        editdistance \
-        editdistance_s \
-        fugashi[unidic,unidic-lite] \
-        gensim \
-        google-cloud-aiplatform \
-        google-generativeai \
-        iam-rolesanywhere-session \
-        ipadic \
-        jumandic \
-        litellm \
-        nlp \
-        nltk\>=3.7 \
-        openai\>=1.1.1 \
-        sentencepiece \
-        sudachidict_core \
-        sudachipy \
-        textdistance[extras] \
-        ;
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    kaggle \
-    signate \
-    stickytape \
-    ;
-
-# PyTorch関連: https://pytorch.org/get-started/locally/
-# ai2-tango, daajaは依存関係が厳しめなので削除
-RUN --mount=type=cache,target=/root/.cache set -x \
-    # PyTorchが既にインストールされてしまっていないことの確認
-    && test $(pip freeze | grep ^torch== | wc -l) -eq 0 \
-    # PyTorchとそれに依存するものたちのインストール
-    && pip install torch torchaudio torchtext torchvision --extra-index-url https://download.pytorch.org/whl/cu118 \
-    && pip install \
-    accelerate \
-    autoawq\>=0.2.7 \
-    "autoawq_kernels@https://github.com/casper-hansen/AutoAWQ_kernels/releases/download/v0.0.9/autoawq_kernels-0.0.9-cp311-cp311-linux_x86_64.whl" \
-    auto-gptq \
-    bitsandbytes \
-    cnn-finetune \
-    # shunk031/JGLUEのため
-    datasets\<3 \
-    einops \
-    fastai \
-    optimum \
-    flexgen \
-    ginza \
-    jmespath \
-    langchain \
-    langchain-community \
-    langchain-openai \
-    llama-index\>=0.9 \
-    openai\>=1.1.1 \
-    peft \
-    polars[all] \
-    pretrainedmodels \
-    pytorch-ignite \
-    pytorch-lightning \
-    sentence-transformers\>=3.2.1 \
-    spacy \
-    tokenizers\>=0.13.2 \
-    torch\>=2.5.1 \
-    torchaudio\>=2.5.1 \
-    torchtext\>=0.18.0 \
-    torchvision\>=0.20.1 \
-    transformers-stream-generator \
-    transformers[ja,sentencepiece]\>=4.46.2 \
-    translatedoc\>=1.5.1 \
-    triton \
-    trl\>=0.11.4 \
-    unstructured[all-docs]\>=0.16.8 \
-    --extra-index-url https://download.pytorch.org/whl/cu118 \
-    --extra-index-url https://huggingface.github.io/autogptq-index/whl/cu118/
-
-# PyTorchがエラーにならないことの確認
-RUN set -x \
-    && python3 -c "import torch;print(torch.cuda.get_device_name())" 2>&1 | tee /tmp/check.log \
-    && grep -q "RuntimeError: No CUDA GPUs are available" /tmp/check.log \
-    && rm -f /tmp/check.log
-
-# apex
-#RUN --mount=type=cache,target=/root/.cache set -x && \
-#    git clone --depth=1 https://github.com/NVIDIA/apex.git /usr/local/src/apex &&\
-#    cd /usr/local/src/apex &&\
-#    pip install --global-option="--cpp_ext" --global-option="--cuda_ext" ./ &&\
-#    rm -rf /usr/local/src/apex
-
-# その他依存関係の問題とかで後回しなやつ
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install \
-    fasttext \
-    featuretools \
-    lycon \
-    ptk \
-    pycocotools \
-    tidecv \
-    tslearn \
-    umap-learn \
-    && pip install flash-attn --no-build-isolation
-
-    # 辞書など
-# https://github.com/nltk/nltk/issues/1825
-RUN set -x \
-    && python3 -m nltk.downloader --exit-on-error --dir=/usr/local/share/nltk_data popular punkt_tab
-RUN set -x \
-    && ldconfig /usr/local/cuda/lib64/stubs \
-    && python3 -m spacy download en_core_web_sm --no-cache \
-    && ldconfig
-RUN set -x \
-    && python3 -m unidic download
-
 # nodejs
 COPY --from=node:lts /usr/local/bin/node /usr/local/bin/
 COPY --from=node:lts /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
@@ -654,19 +370,68 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && yarn config set https-proxy $https_proxy -g \
     && yarn config set strict-ssl false -g
 
-# jupyter関連
-# jupyter-tensorboardはバージョン依存が怪しいので入れない
-RUN --mount=type=cache,target=/root/.cache \
-    --mount=type=cache,target=/root/.npm \
-    set -x \
+# devpi-server用
+ARG PIP_TRUSTED_HOST=""
+ARG PIP_INDEX_URL=""
+ARG PIP_RETRIES=10
+ARG PIP_TIMEOUT=180
+ARG PIP_DEFAULT_TIMEOUT=180
+ARG PIP_ROOT_USER_ACTION=ignore
+
+# pip
+RUN --mount=type=cache,target=/root/.cache set -ex \
+    && pip install --upgrade pip \
     && pip install \
-    jupyterlab-code-formatter \
-    jupyterlab-git \
-    jupyterlab-language-pack-ja-JP \
-    jupyterlab-widgets \
-    jupyterlab \
-    ;
-#    && (jupyter lab build --dev-build=False --minimize=False --debug-log-path=/tmp/jupyterlab-build.log || (cat /tmp/jupyterlab-build.log && false))
+        cython \
+        pip_system_certs \
+        poetry \
+        wheel \
+        wrapt \
+    && poetry self add poetry-plugin-export
+COPY requirements.txt /usr/local/src/requirements.txt
+RUN --mount=type=cache,target=/root/.cache set -ex \
+    && pip install --upgrade pip \
+    && pip install --requirement /usr/local/src/requirements.txt
+
+# TFがエラーにならないことの確認
+RUN set -x \
+    && python3 -c "import tensorflow as tf;print(tf.config.list_physical_devices('GPU'))" 2>&1 | tee /tmp/check.log \
+    && grep -q 'failed call to cuInit: CUDA_ERROR_NO_DEVICE' /tmp/check.log \
+    && rm -f /tmp/check.log
+
+# PyTorchがエラーにならないことの確認
+RUN set -x \
+    && python3 -c "import torch;print(torch.cuda.get_device_name())" 2>&1 | tee /tmp/check.log \
+    && grep -q "RuntimeError: No CUDA GPUs are available" /tmp/check.log \
+    && rm -f /tmp/check.log
+
+# apex
+#RUN --mount=type=cache,target=/root/.cache set -x && \
+#    git clone --depth=1 https://github.com/NVIDIA/apex.git /usr/local/src/apex &&\
+#    cd /usr/local/src/apex &&\
+#    pip install --global-option="--cpp_ext" --global-option="--cuda_ext" ./ &&\
+#    rm -rf /usr/local/src/apex
+
+# その他依存関係の問題とかで後回しなやつ
+RUN --mount=type=cache,target=/root/.cache set -x \
+    && pip install flash-attn --no-build-isolation
+
+# 辞書など
+# https://github.com/nltk/nltk/issues/1825
+RUN set -x \
+    && python3 -m nltk.downloader --exit-on-error --dir=/usr/local/share/nltk_data popular punkt_tab
+RUN set -x \
+    && ldconfig /usr/local/cuda/lib64/stubs \
+    && python3 -m spacy download en_core_web_sm --no-cache \
+    && ldconfig
+RUN set -x \
+    && python3 -m unidic download
+
+# jupyter関連
+# RUN --mount=type=cache,target=/root/.cache \
+#     --mount=type=cache,target=/root/.npm \
+#     set -x \
+#     && (jupyter lab build --dev-build=False --minimize=False --debug-log-path=/tmp/jupyterlab-build.log || (cat /tmp/jupyterlab-build.log && false))
 
 # LightGBM
 # 参考: https://lightgbm.readthedocs.io/en/latest/GPU-Tutorial.html
@@ -716,7 +481,7 @@ RUN set -x \
     && echo 'export BETTER_EXCEPTIONS=1' >> /etc/profile.d/docker.sh \
     && echo 'export TF_FORCE_GPU_ALLOW_GROWTH=true' >> /etc/profile.d/docker.sh \
     # sudoでhttp_proxyなどが引き継がれるようにしておく
-    && echo 'Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy PIP_TRUSTED_HOST PIP_INDEX_URL"' > /etc/sudoers.d/docker \
+    && echo 'Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy PIP_TRUSTED_HOST PIP_INDEX_URL PIP_ROOT_USER_ACTION SSL_CERT_FILE PIP_CERT REQUESTS_CA_BUNDLE"' > /etc/sudoers.d/docker \
     && echo 'Defaults always_set_home' >> /etc/sudoers.d/docker \
     # $RUN_USERをパスワード無しでsudoできるようにしておく
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/docker \

@@ -55,6 +55,7 @@ update:
 	poetry update
 	poetry install --no-interaction
 	poetry export --format=requirements.txt --without-hashes --output=requirements.txt
+	poetry run pyfltr --exit-zero-even-if-formatted tests
 
 rebuild:
 	$(MAKE) build BUILD_ARGS="$(BUILD_ARGS) --no-cache"
