@@ -1,5 +1,12 @@
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.pyfltr]
-pyupgrade-args = ["--py38-plus"]
+pyupgrade-args = ["--py311-plus"]
 pylint-args = ["--jobs=4"]
 
 [tool.isort]
@@ -9,7 +16,7 @@ profile = "black"
 
 [tool.black]
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html
-target-version = ['py38']
+target-version = ['py311']
 skip-magic-trailing-comma = true
 
 [tool.flake8]
@@ -29,6 +36,7 @@ warn_no_return = true
 warn_redundant_casts = true
 warn_unused_configs = true
 show_error_codes = true
+plugins = ["sqlalchemy.ext.mypy.plugin"]
 cache_dir = "/dev/null"
 
 [[tool.mypy.overrides]]
@@ -37,4 +45,14 @@ module = ["transformers.*"]
 
 [tool.pytest.ini_options]
 # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
-addopts = "--showlocals -p no:cacheprovider --durations=0"
+addopts = "--showlocals -p no:cacheprovider --durations=5"
+norecursedirs = ["__pycache__", ".git", ".cache", ".venv", "node_modules"]
+filterwarnings = [
+    "ignore:.*`config`.*:pydantic.warnings.PydanticDeprecatedSince20",  # for pydantic
+    "ignore:.*`@root_validator`.*:pydantic.warnings.PydanticDeprecatedSince20",  # for litellm
+    "ignore:.*`pydantic.config.Extra`.*:pydantic.warnings.PydanticDeprecatedSince20",  # for litellm
+    "ignore:.*pkg_resources is deprecated as an API.*:DeprecationWarning",  # for litellm
+    "ignore:.*pkg_resources.declare_namespace.*:DeprecationWarning",  # for google
+]
+xfail_strict = true
+log_level = "DEBUG"

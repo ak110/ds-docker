@@ -51,11 +51,16 @@ help:
 	ssh-keygen -t ed25519 -f .ssh_host_keys/ssh_host_ed25519_key -N ''
 	ssh-keygen -t rsa -f .ssh_host_keys/ssh_host_rsa_key -N ''
 
+update:
+	poetry update
+	poetry install --no-interaction
+	poetry export --format=requirements.txt --without-hashes --output=requirements.txt
+
 rebuild:
 	$(MAKE) build BUILD_ARGS="$(BUILD_ARGS) --no-cache"
 
 build: .ssh_host_keys
-	docker build --pull $(BUILD_ARGS) --tag=$(IMAGE_TAG) .
+	docker build --pull --progress=plain $(BUILD_ARGS) --tag=$(IMAGE_TAG) .
 	$(MAKE) test
 	docker images $(IMAGE_TAG)
 
@@ -64,14 +69,14 @@ format:
 		--volume="$(CURDIR):/work:rw" \
 		--workdir="/work" \
 		--user=$(shell id -u) \
-		$(IMAGE_TAG) bash -cx "pyfltr --commands=pyupgrade,isort,black,pflake8 tests"
+		$(IMAGE_TAG) bash -cx "pyfltr --exit-zero-even-if-formatted --commands=fast tests"
 
 test:
 	docker run --rm --interactive $(RUN_GPU_ARGS) \
 		--volume="$(CURDIR):/work:ro" \
 		--workdir="/work" \
 		--env="GPU=$(GPU)" \
-		$(IMAGE_TAG) bash -cx "pip freeze ; pyfltr"
+		$(IMAGE_TAG) bash -cx "nvidia-smi && pip freeze && pytest"
 
 shell:
 	docker run --rm --interactive --tty $(RUN_GPU_ARGS) \
