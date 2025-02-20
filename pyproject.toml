@@ -28,6 +28,7 @@ cookiecutter = "*"
 cupy-cuda11x = "*"
 cysignals = "*"
 datasets = "<3" # shunk031/jglueのため
+deltalake = ">=0.24,<0.25"  # poetry workaround
 diskcache = "*"
 editdistance = "*"
 editdistance_s = "*"
@@ -221,6 +222,7 @@ types-werkzeug = "*"
 ulid-py = ">=1.1"
 umap-learn = "*"
 unstructured = { version=">=0.16.8", extras=["all-docs"] }
+vllm = "*"
 wheel = ">=0.37"  # for flash-attn
 xgboost = ">=1.7.6"
 xlrd = "*"
@@ -229,7 +231,7 @@ xlsxwriter = ">=3.1"
 xlwt = "*"
 yapf = "*"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 
 [[tool.poetry.source]]
 name = "pytorch"

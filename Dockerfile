@@ -22,6 +22,7 @@ RUN set -x \
 # aptその1
 # pyenv用: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 # その他？: libpng-dev, libjpeg-dev
+# pytorch用に最新化: libnccl2 libnccl-dev
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
@@ -34,7 +35,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     locales \
     software-properties-common \
     && apt-get upgrade --yes \
-    && apt-get install --yes --no-install-recommends \
+    && apt-get install --yes --no-install-recommends --allow-change-held-packages \
     build-essential \
     curl \
     libbluetooth-dev \
@@ -47,6 +48,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     libgdbm-dev \
     libjpeg-dev \
     liblzma-dev \
+    libnccl-dev \
+    libnccl2 \
     libncurses5-dev \
     libnss3-dev \
     libpng-dev \
@@ -360,7 +363,6 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && npm -g config set cafile /etc/ssl/certs/ca-certificates.crt \
     && npm -g update \
     && npm -g install \
-        @vscode/vsce \
         aicommits \
         eslint \
         npm-check-updates \
