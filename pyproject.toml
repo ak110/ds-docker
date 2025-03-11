@@ -222,6 +222,7 @@ types-werkzeug = "*"
 ulid-py = ">=1.1"
 umap-learn = "*"
 unstructured = { version=">=0.16.8", extras=["all-docs"] }
+uv = ">=0.6"
 vllm = "*"
 wheel = ">=0.37"  # for flash-attn
 xgboost = ">=1.7.6"
