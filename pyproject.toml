@@ -190,7 +190,7 @@ dependencies = [
     "tensorboard-plugin-profile",
     "tensorflow-datasets",
     "tensorflow-hub",
-    "tensorflow>=2.18,<2.19",
+    "tensorflow[and-cuda]>=2.18,<2.19",
     "tensorpack",
     "textdistance[extras]",
     "tf2cv",
