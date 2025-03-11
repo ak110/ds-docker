@@ -496,8 +496,8 @@ wheels = [
 
 [[package]]
 name = "auto-gptq"
-version = "0.7.1"
-source = { registry = "https://pypi.org/simple" }
+version = "0.7.1+cu118"
+source = { registry = "https://huggingface.github.io/autogptq-index/whl/cu118" }
 dependencies = [
     { name = "accelerate" },
     { name = "datasets" },
@@ -511,10 +511,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "transformers" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/90/e5/b22697903982284fe284568fb2663a2196694a8eee637f5cf4ccfe435a38/auto_gptq-0.7.1.tar.gz", hash = "sha256:5c61ad380e9b4c603757c254765e9083a90a820cd0aff1b5d2c6f7fd96c85e80", size = 126148 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/97/32/7cc2f3bd401021fe9af085e78c2b8c24d6521bec324918c8c5660c650074/auto_gptq-0.7.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a372d81d523b8d2f98639bbca63c0c427cab0ed55b8a57bb96706b0942aa01c9", size = 23520497 },
-    { url = "https://files.pythonhosted.org/packages/e2/8e/6c90faf9c4058215341523c1fd0e70ac49c504023af2fcd0bd89a825dd72/auto_gptq-0.7.1-cp311-cp311-win_amd64.whl", hash = "sha256:8d9d3fbfff94e129bcde0432fd5f6ba09f26aeceea0890a68c898210ba448135", size = 4643924 },
+    { url = "https://huggingface.github.io/autogptq-index/whl/cu118/auto-gptq/auto_gptq-0.7.1%2Bcu118-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" },
+    { url = "https://huggingface.github.io/autogptq-index/whl/cu118/auto-gptq/auto_gptq-0.7.1%2Bcu118-cp311-cp311-win_amd64.whl" },
 ]
 
 [[package]]
@@ -1591,7 +1590,6 @@ dependencies = [
     { name = "anthropic" },
     { name = "augmentor" },
     { name = "authlib" },
-    { name = "auto-gptq" },
     { name = "av", version = "13.1.0", source = { registry = "https://pypi.org/simple" }, marker = "sys_platform == 'darwin'" },
     { name = "av", version = "14.2.0", source = { registry = "https://pypi.org/simple" }, marker = "sys_platform != 'darwin'" },
     { name = "azure-identity" },
@@ -1819,6 +1817,7 @@ dependencies = [
 
 [package.dev-dependencies]
 compile = [
+    { name = "auto-gptq" },
     { name = "autoawq" },
     { name = "autoawq-kernels" },
     { name = "flash-attn" },
@@ -1831,7 +1830,6 @@ requires-dist = [
     { name = "anthropic", specifier = ">=0.21" },
     { name = "augmentor" },
     { name = "authlib", specifier = ">=1.2" },
-    { name = "auto-gptq", specifier = ">=0.7" },
     { name = "av" },
     { name = "azure-identity", specifier = ">=1.15" },
     { name = "bandit" },
@@ -2055,6 +2053,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 compile = [
+    { name = "auto-gptq", specifier = ">=0.7", index = "https://huggingface.github.io/autogptq-index/whl/cu118" },
     { name = "autoawq", specifier = ">=0.2.7" },
     { name = "autoawq-kernels", url = "https://github.com/casper-hansen/autoawq_kernels/releases/download/v0.0.9/autoawq_kernels-0.0.9-cp311-cp311-linux_x86_64.whl" },
     { name = "flash-attn" },

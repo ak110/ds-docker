@@ -8,7 +8,6 @@ dependencies = [
     "anthropic>=0.21",
     "augmentor",
     "authlib>=1.2",
-    "auto-gptq>=0.7",
     "av",
     "azure-identity>=1.15",
     "bandit",
@@ -232,6 +231,7 @@ dependencies = [
 
 [dependency-groups]
 compile = [
+    "auto-gptq>=0.7",
     "autoawq>=0.2.7",
     "autoawq_kernels",
     "flash-attn",
@@ -241,6 +241,7 @@ dev = []
 [tool.uv]
 package = false
 no-build-isolation-package = [
+    "auto-gptq",
     "autoawq",
     "flash-attn",
 ]
@@ -249,8 +250,8 @@ no-build-isolation-package = [
 #]
 
 [tool.uv.sources]
+auto-gptq = { index = "auto-gptq" }
 autoawq_kernels = { url = "https://github.com/casper-hansen/autoawq_kernels/releases/download/v0.0.9/autoawq_kernels-0.0.9-cp311-cp311-linux_x86_64.whl" }
-autogptq = { index = "autogptq" }
 torch = { index = "pytorch" }
 #torchaudio = { index = "pytorch" }
 #torchtext = { index = "pytorch" }
@@ -262,7 +263,7 @@ url = "https://download.pytorch.org/whl/cu118"
 explicit = true
 
 [[tool.uv.index]]
-name = "autogptq"
+name = "auto-gptq"
 url = "https://huggingface.github.io/autogptq-index/whl/cu118"
 explicit = true
 
