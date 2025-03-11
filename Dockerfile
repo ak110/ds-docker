@@ -391,10 +391,15 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         wheel \
         wrapt \
     && poetry self add poetry-plugin-export
-COPY pyproject.toml /usr/local/src/
-COPY uv.lock /usr/local/src/
+COPY requirements.txt /usr/local/src/requirements.txt
+COPY requirements.compile.txt /usr/local/src/requirements.compile.txt
 RUN --mount=type=cache,target=/root/.cache set -ex \
-    && uv sync --python-preference=only-system --directory=/usr/local/src/ --locked
+    && pip install --upgrade pip \
+    && pip install --requirement /usr/local/src/requirements.txt \
+        --extra-index-url=https://download.pytorch.org/whl/cu126 \
+    && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt \
+        --extra-index-url=https://download.pytorch.org/whl/cu126 \
+    ;
 
 # TFがエラーにならないことの確認
 RUN set -x \
@@ -455,9 +460,11 @@ RUN set -x \
     && updatedb
 
 # ユーザー作成
+# ubuntu24のDockerイメージはUID=1000でubuntuがあるようなので、重複する場合は削除してから作成
 ARG RUN_USER=user
 ARG RUN_UID=1000
 RUN set -x \
+    && if getent passwd 1000 ; then userdel --remove `getent passwd 1000 | cut -d: -f1` ; fi \
     && useradd --create-home --shell=/bin/bash --uid=$RUN_UID --groups=sudo $RUN_USER
 
 RUN set -x \

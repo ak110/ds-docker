@@ -190,7 +190,7 @@ dependencies = [
     "tensorboard-plugin-profile",
     "tensorflow-datasets",
     "tensorflow-hub",
-    "tensorflow[and-cuda]>=2.18,<2.19",
+    "tensorflow>=2.18,<2.19",
     "tensorpack",
     "textdistance[extras]",
     "tf2cv",
@@ -244,27 +244,20 @@ no-build-isolation-package = [
     "auto-gptq",
     "autoawq",
 ]
+# https://pytorch.org/get-started/locally/
+extra-index-url = [
+    "https://download.pytorch.org/whl/cu126",
+    # "https://huggingface.github.io/autogptq-index/whl/cu118",
+]
+index-strategy = "unsafe-best-match"
 
 [tool.uv.sources]
-# auto-gptq = { index = "auto-gptq" }
 # autoawq_kernels = { url = "https://github.com/casper-hansen/autoawq_kernels/releases/download/v0.0.9/autoawq_kernels-0.0.9-cp311-cp311-linux_x86_64.whl" }
-torch = { index = "pytorch" }
 flash-attn = [
     # https://github.com/Dao-AILab/flash-attention/releases
     { url = "https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiTRUE-cp311-cp311-linux_x86_64.whl", marker = "python_version == '3.11'" },
     { url = "https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiTRUE-cp312-cp312-linux_x86_64.whl", marker = "python_version == '3.12'" }
 ]
-
-[[tool.uv.index]]
-name = "pytorch"
-# https://pytorch.org/get-started/locally/
-url = "https://download.pytorch.org/whl/cu126"
-explicit = true
-
-[[tool.uv.index]]
-name = "auto-gptq"
-url = "https://huggingface.github.io/autogptq-index/whl/cu118"
-explicit = true
 
 [build-system]
 requires = ["hatchling"]
