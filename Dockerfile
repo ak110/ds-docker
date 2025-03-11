@@ -398,7 +398,12 @@ COPY requirements.compile.txt /usr/local/src/requirements.compile.txt
 RUN --mount=type=cache,target=/root/.cache set -ex \
     && pip install --upgrade pip \
     && pip install --requirement /usr/local/src/requirements.txt \
-    && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt
+        --extra-index-url=https://download.pytorch.org/whl/cu118 \
+        --extra-index-url=https://huggingface.github.io/autogptq-index/whl/cu118 \
+    && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt \
+        --extra-index-url=https://download.pytorch.org/whl/cu118 \
+        --extra-index-url=https://huggingface.github.io/autogptq-index/whl/cu118 \
+    ;
 
 # TFがエラーにならないことの確認
 RUN set -x \
