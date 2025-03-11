@@ -394,9 +394,11 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         wrapt \
     && poetry self add poetry-plugin-export
 COPY requirements.txt /usr/local/src/requirements.txt
+COPY requirements.compile.txt /usr/local/src/requirements.compile.txt
 RUN --mount=type=cache,target=/root/.cache set -ex \
     && pip install --upgrade pip \
-    && pip install --requirement /usr/local/src/requirements.txt
+    && pip install --requirement /usr/local/src/requirements.txt \
+    && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt
 
 # TFがエラーにならないことの確認
 RUN set -x \
@@ -409,17 +411,6 @@ RUN set -x \
     && python3 -c "import torch;print(torch.cuda.get_device_name())" 2>&1 | tee /tmp/check.log \
     && grep -q "RuntimeError: No CUDA GPUs are available" /tmp/check.log \
     && rm -f /tmp/check.log
-
-# apex
-#RUN --mount=type=cache,target=/root/.cache set -x && \
-#    git clone --depth=1 https://github.com/NVIDIA/apex.git /usr/local/src/apex &&\
-#    cd /usr/local/src/apex &&\
-#    pip install --global-option="--cpp_ext" --global-option="--cuda_ext" ./ &&\
-#    rm -rf /usr/local/src/apex
-
-# その他依存関係の問題とかで後回しなやつ
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && pip install flash-attn --no-build-isolation
 
 # 辞書など
 # https://github.com/nltk/nltk/issues/1825
