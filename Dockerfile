@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 
 # https://hub.docker.com/r/nvidia/cuda/tags
-FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04 AS base-stage
+# https://www.tensorflow.org/install/source?hl=ja#gpu
+# https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
+FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu24.04 AS base-stage
 
 # apt用プロキシ(apt-cacher-ng用)
 ARG APT_PROXY=$http_proxy
@@ -43,7 +45,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     libdb-dev \
     libexpat-dev \
     libffi-dev \
-    libffi7 \
     libffi8 \
     libgdbm-dev \
     libjpeg-dev \
@@ -114,11 +115,11 @@ RUN set -ex \
 FROM base-stage AS main-stage
 ARG DEBIAN_FRONTEND=noninteractive
 
-# unminimize
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
-    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
-    set -x \
-    && yes | unminimize
+# # unminimize
+# RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
+#     --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
+#     set -x \
+#     && yes | unminimize
 
 # aptその2
 # scipy用: gfortran
@@ -138,7 +139,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     apparmor \
     apt-file \
     automake \
-    awscli \
     bash-completion \
     bc \
     bind9-host \
@@ -224,6 +224,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     libopenblas-dev \
     libsndfile1 \
     linux-base \
+    locate \
     logrotate \
     lshw \
     lsof \
@@ -233,8 +234,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     mecab \
     mecab-ipadic-utf8 \
     mecab-jumandic-utf8 \
-    mime-support \
-    mlocate \
     mtr-tiny \
     nano \
     net-tools \
@@ -242,7 +241,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     netcat-openbsd \
     netplan.io \
     networkd-dispatcher \
-    nplan \
     ntfs-3g \
     nvidia-opencl-dev \
     openssh-client \
@@ -398,10 +396,10 @@ COPY requirements.compile.txt /usr/local/src/requirements.compile.txt
 RUN --mount=type=cache,target=/root/.cache set -ex \
     && pip install --upgrade pip \
     && pip install --requirement /usr/local/src/requirements.txt \
-        --extra-index-url=https://download.pytorch.org/whl/cu118 \
+        --extra-index-url=https://download.pytorch.org/whl/cu126 \
         --extra-index-url=https://huggingface.github.io/autogptq-index/whl/cu118 \
     && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt \
-        --extra-index-url=https://download.pytorch.org/whl/cu118 \
+        --extra-index-url=https://download.pytorch.org/whl/cu126 \
         --extra-index-url=https://huggingface.github.io/autogptq-index/whl/cu118 \
     ;
 
