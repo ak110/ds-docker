@@ -408,7 +408,7 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
 # TFがエラーにならないことの確認
 RUN set -x \
     && python3 -c "import tensorflow as tf;print(tf.config.list_physical_devices('GPU'))" 2>&1 | tee /tmp/check.log \
-    && grep -q 'failed call to cuInit: CUDA_ERROR_NO_DEVICE' /tmp/check.log \
+    && grep -q 'cuInit: CUDA_ERROR_NO_DEVICE' /tmp/check.log \
     && rm -f /tmp/check.log
 
 # PyTorchがエラーにならないことの確認

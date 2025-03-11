@@ -253,9 +253,6 @@ no-build-isolation-package = [
 auto-gptq = { index = "auto-gptq" }
 autoawq_kernels = { url = "https://github.com/casper-hansen/autoawq_kernels/releases/download/v0.0.9/autoawq_kernels-0.0.9-cp311-cp311-linux_x86_64.whl" }
 torch = { index = "pytorch" }
-#torchaudio = { index = "pytorch" }
-#torchtext = { index = "pytorch" }
-#torchvision = { index = "pytorch" }
 
 [[tool.uv.index]]
 name = "pytorch"
