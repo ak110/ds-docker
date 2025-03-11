@@ -391,17 +391,10 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         wheel \
         wrapt \
     && poetry self add poetry-plugin-export
-COPY requirements.txt /usr/local/src/requirements.txt
-COPY requirements.compile.txt /usr/local/src/requirements.compile.txt
+COPY pyproject.toml /usr/local/src/
+COPY uv.lock /usr/local/src/
 RUN --mount=type=cache,target=/root/.cache set -ex \
-    && pip install --upgrade pip \
-    && pip install --requirement /usr/local/src/requirements.txt \
-        --extra-index-url=https://download.pytorch.org/whl/cu126 \
-        --extra-index-url=https://huggingface.github.io/autogptq-index/whl/cu118 \
-    && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt \
-        --extra-index-url=https://download.pytorch.org/whl/cu126 \
-        --extra-index-url=https://huggingface.github.io/autogptq-index/whl/cu118 \
-    ;
+    && uv sync --python-preference=only-system --directory=/usr/local/src/ --locked
 
 # TFがエラーにならないことの確認
 RUN set -x \
