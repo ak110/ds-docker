@@ -494,6 +494,8 @@ RUN set -x \
     && visudo --check \
     # completion
     && poetry completions bash > /etc/bash_completion.d/poetry.bash-completion \
+    && uv generate-shell-completion bash > /etc/bash_completion.d/uv.bash-completion \
+    && uvx --generate-shell-completion bash > /etc/bash_completion.d/uvx.bash-completion \
     # 念のため最後にldconfig
     && ldconfig
 

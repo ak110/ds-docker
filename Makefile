@@ -54,9 +54,9 @@ help:
 update:
 	uv sync --no-group=compile
 	uv sync --upgrade
+	uv export --format=requirements-txt --no-hashes > requirements.txt
 	# https://github.com/Dao-AILab/flash-attention
 	MAX_JOBS=4 uv sync --upgrade --group=compile
-	uv export --format=requirements-txt --no-hashes > requirements.txt
 	uv run pyfltr --exit-zero-even-if-formatted tests
 
 rebuild:
