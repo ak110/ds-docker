@@ -1,252 +1,274 @@
-[tool.poetry]
-package-mode = false
+[project]
+name = "ds-docker"
+version = "0.0.1"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "accelerate",
+    "albumentations",
+    "anthropic>=0.21",
+    "augmentor",
+    "authlib>=1.2",
+    "auto-gptq>=0.7",
+    "av",
+    "azure-identity>=1.15",
+    "bandit",
+    "bashplotlib",
+    "bcrypt>=4.1",
+    "better_exceptions",
+    "boto3>=1.34",
+    "bitsandbytes",
+    "black>=24.3",
+    "cairocffi",
+    "catboost",
+    "category_encoders",
+    "cnn-finetune",
+    "cookiecutter",
+    "cupy-cuda11x",
+    "cysignals",
+    "datasets<3",
+    "deltalake>=0.24,<0.25",
+    "diskcache",
+    "editdistance",
+    "editdistance_s",
+    "einops",
+    "eli5",
+    "ensemble-boxes",
+    "fastai",
+    "fastapi[all]",
+    "fasteners",
+    "fastprogress",
+    "fastrlock",
+    "fasttext",
+    "feather-format",
+    "featuretools",
+    "fire",
+    "flask[async]>=3.0",
+    "flask-login>=0.6.3",
+    "flask-migrate>=4.0",
+    "flask-restless-ng>=3.0",
+    "flask-sqlalchemy>=3.1",
+    "flexgen",
+    "fugashi[unidic, unidic-lite]",
+    "gensim",
+    "ginza",
+    "google-cloud-aiplatform>=1.44",
+    "google-generativeai",
+    "guidance",
+    "gunicorn>=21.2",
+    "httpx>=0.25",
+    "hyperopt",
+    "iam-rolesanywhere-session",
+    "image-classifiers",
+    "imageio",
+    "imbalanced-learn",
+    "imgaug",
+    "imgdup",
+    "ipadic",
+    "isort",
+    "iterative-stratification",
+    "janome",
+    "japanize-matplotlib",
+    "jmespath",
+    "joblib",
+    "jpholiday",
+    "jumandic",
+    "jupyterlab",
+    "jupyterlab-code-formatter",
+    "jupyterlab-git",
+    "jupyterlab-language-pack-ja-jp",
+    "jupyterlab-widgets",
+    "kaggle",
+    "keras",
+    "keras-cv",
+    "keras2onnx",
+    "langchain",
+    "langchain-community>=0.3.19",
+    "langchain-openai",
+    "librosa",
+    "lightgbm",
+    "litellm",
+    "llama-index>=0.9",
+    "markdown>=3.6",
+    "matplotlib",
+    "mecab-python3",
+    "motpy",
+    "moviepy>=2.0",
+    "mpi4py",
+    "msal>=1.25",
+    "msg-parser[rtf]>=1.2",
+    "msgraph-sdk>=1.0",
+    "natsort",
+    "ninja",
+    "nlp",
+    "nltk>=3.7",
+    "noise",
+    "nose",
+    "numba",
+    "numpy>=1.26",
+    "onnxmltools",
+    "openai>=1.3",
+    "opencv-python-headless",
+    "openpyxl",
+    "optimum",
+    "optuna>=1.3.0",
+    "packaging>=23.2",
+    "pandas",
+    "pandas-stubs",
+    "passlib",
+    "pathvalidate>=3.2",
+    "peft",
+    "pillow>=10.2",
+    "pip-tools",
+    "pip_system_certs",
+    "pipdeptree",
+    "pipenv",
+    "plotly",
+    "polars[all]>=1.12",
+    "pre-commit",
+    "pretrainedmodels",
+    "progressbar2",
+    "ptk",
+    "pycocotools",
+    "pycryptodome",
+    "pydot",
+    "pyfltr>=1.6",
+    "pygments",
+    "pykalman",
+    "pylama",
+    "pymysql>=1.1",
+    "pyod",
+    "pypandoc",
+    "pypdf",
+    "pytesseract",
+    "pytest-cookies",
+    "pytest-mock",
+    "pytest-timeout",
+    "pytest-xdist",
+    "python-datauri",
+    "python-dotenv>=1.0",
+    "python-utils",
+    "pytilpack[all]>=1.11",
+    "pytorch-ignite",
+    "pytorch-lightning",
+    "pyyaml>=6.0",
+    "refurb",
+    "requests>=2.28",
+    "rgf-python",
+    "rope",
+    "safety",
+    "sagemaker",
+    "schedule>=1.2",
+    "scikit-image",
+    "scikit-learn",
+    "scikit-optimize[plots]",
+    "seaborn",
+    "segmentation-models",
+    "semantic-kernel",
+    "sentence-transformers>=3.2.1",
+    "sentencepiece",
+    "setup-cfg-fmt",
+    "setuptools",
+    "signate",
+    "sklearn-pandas>=2.2.0",
+    "solrpy",
+    "soundfile",
+    "spacy",
+    "sphinx",
+    "sphinx-autobuild",
+    "sphinx-autodoc-typehints",
+    "sphinx_rtd_theme",
+    "sqlalchemy-stubs",
+    "sqlalchemy[mypy]>=2.0",
+    "sse-starlette",
+    "stickytape",
+    "sudachidict_core",
+    "sudachipy",
+    "sympy",
+    "tabulate",
+    "tenacity",
+    "tensorboard",
+    "tensorboard-plugin-profile",
+    "tensorflow-datasets",
+    "tensorflow-hub",
+    "tensorflow[and-cuda]>=2.18,<2.19",
+    "tensorpack",
+    "textdistance[extras]",
+    "tf2cv",
+    "tf2onnx",
+    "tidecv",
+    "tiktoken>=0.5",
+    "tinydb",
+    "tokenizers>=0.13.2",
+    "torch>=2.5.1",
+    "torchaudio>=2.5.1",
+    "torchtext>=0.17.0",
+    "torchvision>=0.20.1",
+    "tqdm",
+    "transformers[ja, sentencepiece]>=4.46.2",
+    "transformers-stream-generator",
+    "translatedoc>=1.5.1",
+    "triton",
+    "trl>=0.11.4",
+    "tslearn",
+    "types-click",
+    "types-flask",
+    "types-markdown",
+    "types-pillow",
+    "types-pyyaml",
+    "types-requests",
+    "types-werkzeug",
+    "ulid-py>=1.1",
+    "umap-learn",
+    "unstructured[all-docs]>=0.16.8",
+    "vllm>=0.7",
+    "wheel>=0.37",
+    "xgboost>=1.7.6",
+    "xlrd",
+    "xlsx2csv>=0.8",
+    "xlsxwriter>=3.1",
+    "xlwt",
+    "yapf",
+]
 
-[tool.poetry.dependencies]
-python = "~3.11" # 3.12はTF 2.16以降のみ
-accelerate = "*"
-albumentations = "*"
-anthropic = ">=0.21"
-augmentor = "*"
-authlib = ">=1.2"
-auto-gptq = { version=">=0.7", source="auto-gptq" }
-autoawq = ">=0.2.7"
+[dependency-groups]
+compile = [
+    "autoawq>=0.2.7",
+    "autoawq_kernels",
+    "flash-attn",
+]
+dev = []
+
+[tool.uv]
+package = false
+no-build-isolation-package = [
+    "autoawq",
+    "flash-attn",
+]
+#extra-index-url = [
+#   "https://download.pytorch.org/whl/cu118",
+#]
+
+[tool.uv.sources]
 autoawq_kernels = { url = "https://github.com/casper-hansen/autoawq_kernels/releases/download/v0.0.9/autoawq_kernels-0.0.9-cp311-cp311-linux_x86_64.whl" }
-av = "*"
-azure-identity = ">=1.15"
-bandit = "*"
-bashplotlib = "*"
-bcrypt = ">=4.1"
-better_exceptions = "*"
-boto3 = ">=1.34"
-bitsandbytes = "*"
-black = ">=24.3"
-cairocffi = "*"
-catboost = "*"
-category_encoders = "*"
-cnn-finetune = "*"
-cookiecutter = "*"
-cupy-cuda11x = "*"
-cysignals = "*"
-datasets = "<3" # shunk031/jglueのため
-deltalake = ">=0.24,<0.25"  # poetry workaround
-diskcache = "*"
-editdistance = "*"
-editdistance_s = "*"
-einops = "*"
-eli5 = "*"
-ensemble-boxes = "*"
-fastai = "*"
-fastapi = { version="*", extras=["all"] }
-fasteners = "*"
-fastprogress = "*"
-fastrlock = "*"
-fasttext = "*"
-feather-format = "*"
-featuretools = "*"
-fire = "*"
-flask = { version=">=3.0", extras=["async"] }
-flask-login = ">=0.6.3"
-flask-migrate = ">=4.0"
-flask-restless-ng = ">=3.0"
-flask-sqlalchemy = ">=3.1"
-flexgen = "*"
-fugashi = { version="*", extras=["unidic", "unidic-lite"] }
-gensim = "*"
-ginza = "*"
-google-cloud-aiplatform = ">=1.44"
-google-generativeai = "*"
-guidance = "*"
-gunicorn = ">=21.2"
-httpx = ">=0.25"
-hyperopt = "*"
-iam-rolesanywhere-session = "*"
-image-classifiers = "*"
-imageio = "*"
-imbalanced-learn = "*"
-imgaug = "*"
-imgdup = "*"
-ipadic = "*"
-isort = { version="*", extras=["requirements_deprecated_finder", "pipfile_deprecated_finder"] }
-iterative-stratification = "*"
-janome = "*"
-japanize-matplotlib = "*"
-jmespath = "*"
-joblib = "*"
-jpholiday = "*"
-jumandic = "*"
-jupyterlab = "*"
-jupyterlab-code-formatter = "*"
-jupyterlab-git = "*"
-jupyterlab-language-pack-ja-jp = "*"
-jupyterlab-widgets = "*"
-kaggle = "*"
-keras = "*"
-keras-cv = "*"
-keras2onnx = "*"
-langchain = "*"
-langchain-community = "*"
-langchain-openai = "*"
-librosa = "*"
-lightgbm = "*"
-litellm = "*"
-llama-index = ">=0.9"
-markdown = ">=3.6"
-matplotlib = "*"
-mecab-python3 = "*"
-motpy = "*"
-moviepy = ">=2.0"
-mpi4py = "*"
-msal = ">=1.25"
-msg-parser = { version=">=1.2", extras=["rtf"] }
-msgraph-sdk = ">=1.0"
-natsort = "*"
-ninja = "*"  # for flash-attn
-nlp = "*"
-nltk = ">=3.7"
-noise = "*"
-nose = "*"
-numba = "*"
-numpy = ">=1.26"
-onnxmltools = "*"
-openai = ">=1.3"
-opencv-python-headless = "*"
-openpyxl = "*"
-optimum = "*"
-optuna = ">=1.3.0"
-packaging = ">=23.2"  # for flash-attn
-pandas = "*"
-pandas-stubs = "*"
-passlib = "*"
-pathvalidate = ">=3.2"
-peft = "*"
-pillow = ">=10.2"
-pip-tools = "*"
-pip_system_certs = "*"
-pipdeptree = "*"
-pipenv = "*"
-plotly = "*"
-polars = { version=">=1.12", extras=["all"] }
-pre-commit = "*"
-pretrainedmodels = "*"
-progressbar2 = "*"
-ptk = "*"
-pycocotools = "*"
-pycryptodome = "*"
-pydot = "*"
-pyfltr = ">=1.6"
-pygments = "*"
-pykalman = "*"
-pylama = "*"
-pymysql = ">=1.1"
-pyod = "*"
-pypandoc = "*"
-pypdf = "*"
-pytesseract = "*"
-pytest-cookies = "*"
-pytest-mock = "*"
-pytest-timeout = "*"
-pytest-xdist = "*"
-python-datauri = "*"
-python-dotenv = ">=1.0"
-python-utils = "*"
-pytilpack = { version=">=1.11", extras=["all"] }
-pytorch-ignite = "*"
-pytorch-lightning = "*"
-pyyaml = ">=6.0"
-refurb = "*"
-requests = ">=2.31"
-rgf-python = "*"
-rope = "*"
-safety = "*"
-sagemaker = "*"
-schedule = ">=1.2"
-scikit-image = "*"
-scikit-learn = "*"
-scikit-optimize = { version="*", extras=["plots"] }
-seaborn = "*"
-segmentation-models = "*"
-semantic-kernel = "*"
-sentence-transformers = ">=3.2.1"
-sentencepiece = "*"
-setup-cfg-fmt = "*"
-signate = "*"
-sklearn-pandas = ">=2.2.0"
-solrpy = "*"
-soundfile = "*"
-spacy = "*"
-sphinx = "*"
-sphinx-autobuild = "*"
-sphinx-autodoc-typehints = "*"
-sphinx_rtd_theme = "*"
-sqlalchemy = { version=">=2.0", extras=["mypy"] }
-sqlalchemy-stubs = "*"
-sse-starlette = "*"
-stickytape = "*"
-sudachidict_core = "*"
-sudachipy = "*"
-sympy = "*"
-tabulate = "*"
-tenacity = "*"
-tensorboard = "*"
-tensorboard-plugin-profile = "*"
-tensorflow = { version="~2.15", extras=["and-cuda"] }
-tensorflow-addons = { version="*", extras=["tensorflow"] } # TF 2.16以降は未対応…
-tensorflow-datasets = "*"
-tensorflow-hub = "*"
-tensorpack = "*"
-textdistance = { version="*", extras=["extras"] }
-tf2cv = "*"
-tf2onnx = "*"
-tidecv = "*"
-tiktoken = ">=0.5"
-tinydb = "*"
-tokenizers = ">=0.13.2"
-torch = { version=">=2.5.1", source="pytorch" }
-torchaudio = { version=">=2.5.1" }
-torchtext = { version=">=0.18.0" }
-torchvision = { version=">=0.20.1" }
-tqdm = "*"
-transformers = { version=">=4.46.2", extras=["ja", "sentencepiece"] }
-transformers-stream-generator = "*"
-translatedoc = ">=1.5.1"
-triton = "*"
-trl = ">=0.11.4"
-tslearn = "*"
-types-click = "*"
-types-flask = "*"
-types-markdown = "*"
-types-pillow = "*"
-types-pyyaml = "*"
-types-requests = "*"
-types-werkzeug = "*"
-ulid-py = ">=1.1"
-umap-learn = "*"
-unstructured = { version=">=0.16.8", extras=["all-docs"] }
-uv = ">=0.6"
-vllm = "*"
-wheel = ">=0.37"  # for flash-attn
-xgboost = ">=1.7.6"
-xlrd = "*"
-xlsx2csv = ">=0.8"
-xlsxwriter = ">=3.1"
-xlwt = "*"
-yapf = "*"
+autogptq = { index = "autogptq" }
+torch = { index = "pytorch" }
+#torchaudio = { index = "pytorch" }
+#torchtext = { index = "pytorch" }
+#torchvision = { index = "pytorch" }
 
-[tool.poetry.group.dev.dependencies]
-
-[[tool.poetry.source]]
+[[tool.uv.index]]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cu118"
-priority = "explicit"
+explicit = true
 
-[[tool.poetry.source]]
-name = "auto-gptq"
+[[tool.uv.index]]
+name = "autogptq"
 url = "https://huggingface.github.io/autogptq-index/whl/cu118"
-priority = "explicit"
+explicit = true
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pyfltr]
 pyupgrade-args = ["--py311-plus"]

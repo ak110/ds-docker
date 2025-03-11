@@ -52,10 +52,11 @@ help:
 	ssh-keygen -t rsa -f .ssh_host_keys/ssh_host_rsa_key -N ''
 
 update:
-	poetry update
-	poetry install --no-interaction
-	poetry export --format=requirements.txt --without-hashes --output=requirements.txt
-	poetry run pyfltr --exit-zero-even-if-formatted tests
+	uv sync --no-group=compile
+	uv sync --upgrade
+	uv sync --upgrade --group=compile
+	uv export --format=requirements-txt --no-hashes > requirements.txt
+	uv run pyfltr --exit-zero-even-if-formatted tests
 
 rebuild:
 	$(MAKE) build BUILD_ARGS="$(BUILD_ARGS) --no-cache"

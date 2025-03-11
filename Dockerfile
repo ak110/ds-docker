@@ -389,6 +389,7 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         cython \
         pip_system_certs \
         poetry \
+        uv \
         wheel \
         wrapt \
     && poetry self add poetry-plugin-export
