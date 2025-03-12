@@ -59,7 +59,7 @@ update:
 	# nvidia-*系のパッケージがPyTorchのindexとPyPIの両方にあって変なことになるので削除しちゃう
 	sed -i '/^nvidia-/d' requirements.txt
 	# PyTorchとTensorFlowでcuda系が競合するのでTensorFlowをあとでインストール
-	uv pip install --upgrade "tensorflow[and-cuda]>=2.18,<2.19"
+	uv pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20"
 	uv run pyfltr --exit-zero-even-if-formatted tests
 
 rebuild:

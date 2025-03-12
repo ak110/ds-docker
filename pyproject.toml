@@ -190,7 +190,7 @@ dependencies = [
     "tensorboard-plugin-profile",
     "tensorflow-datasets",
     "tensorflow-hub",
-    "tensorflow>=2.18,<2.19",  # torchとコンフリクトするので[and-cuda]はあとで実施
+    "tensorflow>=2.19,<2.20",  # torchとコンフリクトするので[and-cuda]はあとで実施
     "tensorpack",
     "textdistance[extras]",
     "tf-keras",

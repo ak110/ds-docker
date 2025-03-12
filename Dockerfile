@@ -24,7 +24,6 @@ RUN set -x \
 # aptその1
 # pyenv用: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 # その他？: libpng-dev, libjpeg-dev
-# pytorch用に最新化: libnccl2 libnccl-dev
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
     set -x \
@@ -37,7 +36,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     locales \
     software-properties-common \
     && apt-get upgrade --yes \
-    && apt-get install --yes --no-install-recommends --allow-change-held-packages \
+    && apt-get install --yes --no-install-recommends \
     build-essential \
     curl \
     libbluetooth-dev \
@@ -49,8 +48,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     libgdbm-dev \
     libjpeg-dev \
     liblzma-dev \
-    libnccl-dev \
-    libnccl2 \
     libncurses5-dev \
     libnss3-dev \
     libpng-dev \
@@ -64,6 +61,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     llvm \
     make \
     tk-dev \
+    unminimize \
     uuid-dev \
     wget \
     xz-utils \
@@ -115,11 +113,11 @@ RUN set -ex \
 FROM base-stage AS main-stage
 ARG DEBIAN_FRONTEND=noninteractive
 
-# # unminimize
-# RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
-#     --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
-#     set -x \
-#     && yes | unminimize
+# unminimize
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
+    set -x \
+    && yes | unminimize
 
 # aptその2
 # scipy用: gfortran
@@ -402,7 +400,7 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         --extra-index-url=https://download.pytorch.org/whl/cu126 \
     && pip install --no-build-isolation --requirement /usr/local/src/requirements.step2.txt \
         --extra-index-url=https://download.pytorch.org/whl/cu126 \
-    && pip install --upgrade "tensorflow[and-cuda]>=2.18,<2.19" \
+    && pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20" \
     ;
 
 # TFがエラーにならないことの確認
