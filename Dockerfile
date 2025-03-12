@@ -128,6 +128,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # opencv用: libgl1
 # soundfile用: libsndfile1
 # その他？: liblapack3 libatlas3-base libgfortran5
+# torch? : libcusparselt-dev
 # <https://github.com/scipy/scipy/issues/9005>: gfortran libopenblas-dev liblapack-dev
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
@@ -217,6 +218,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     libboost-dev \
     libboost-filesystem-dev \
     libboost-system-dev \
+    libcusparselt-dev \
     libgfortran5 \
     libgl1 \
     liblapack-dev \
@@ -390,15 +392,17 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         uv \
         wheel \
         wrapt \
-    && poetry self add poetry-plugin-export
+    && poetry self add poetry-plugin-export \
+    ;
 COPY requirements.txt /usr/local/src/requirements.txt
-COPY requirements.compile.txt /usr/local/src/requirements.compile.txt
+COPY requirements.step2.txt /usr/local/src/requirements.step2.txt
 RUN --mount=type=cache,target=/root/.cache set -ex \
     && pip install --upgrade pip \
     && pip install --requirement /usr/local/src/requirements.txt \
         --extra-index-url=https://download.pytorch.org/whl/cu126 \
-    && MAX_JOBS=4 pip install --no-build-isolation --requirement /usr/local/src/requirements.compile.txt \
+    && pip install --no-build-isolation --requirement /usr/local/src/requirements.step2.txt \
         --extra-index-url=https://download.pytorch.org/whl/cu126 \
+    && pip install --upgrade "tensorflow[and-cuda]>=2.18,<2.19" \
     ;
 
 # TFがエラーにならないことの確認
@@ -430,18 +434,18 @@ RUN set -x \
 #     set -x \
 #     && (jupyter lab build --dev-build=False --minimize=False --debug-log-path=/tmp/jupyterlab-build.log || (cat /tmp/jupyterlab-build.log && false))
 
-# LightGBM
-# 参考: https://lightgbm.readthedocs.io/en/latest/GPU-Tutorial.html
-# 参考: https://github.com/microsoft/LightGBM/issues/586
-# https://github.com/microsoft/LightGBM/releases
-RUN --mount=type=cache,target=/root/.cache set -x \
-    && mkdir -p /etc/OpenCL/vendors \
-    && echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd \
-    && git clone --recursive --depth=1 --branch=v4.5.0 https://github.com/microsoft/LightGBM /usr/local/src/LightGBM \
-    && cd /usr/local/src/LightGBM \
-    && cmake -DUSE_GPU=1 \
-    && make -j$(nproc) \
-    && sh ./build-python.sh install --precompile
+# # LightGBM
+# # 参考: https://lightgbm.readthedocs.io/en/latest/GPU-Tutorial.html
+# # 参考: https://github.com/microsoft/LightGBM/issues/586
+# # https://github.com/microsoft/LightGBM/releases
+# RUN --mount=type=cache,target=/root/.cache set -x \
+#     && mkdir -p /etc/OpenCL/vendors \
+#     && echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd \
+#     && git clone --recursive --depth=1 --branch=v4.5.0 https://github.com/microsoft/LightGBM /usr/local/src/LightGBM \
+#     && cd /usr/local/src/LightGBM \
+#     && cmake -DUSE_GPU=1 \
+#     && make -j$(nproc) \
+#     && sh ./build-python.sh install --precompile
 
 # horovod
 # 参考: https://github.com/horovod/horovod/blob/master/docker/horovod/Dockerfile
