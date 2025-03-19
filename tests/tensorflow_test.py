@@ -14,7 +14,7 @@ def test_run(tmpdir):
     x = tf.keras.layers.Conv2D(1, 3, padding="same")(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
     model = tf.keras.models.Model(inputs=inputs, outputs=x)
-    model.compile("adam", "mse")
+    model.compile("adam", "mse", jit_compile=False)
 
     model.summary()
     tf.keras.utils.plot_model(model, str(tmpdir / "model.png"))
