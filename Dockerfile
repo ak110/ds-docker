@@ -84,9 +84,9 @@ RUN set -x \
     && make -j$(nproc) all
 
 # Python
-# 参考: https://github.com/docker-library/python/blob/master/3.11/bookworm/Dockerfile
+# 参考: https://github.com/docker-library/python/blob/master/3.12/bookworm/Dockerfile
 FROM base-stage AS python-stage
-ARG PYTHON_VERSION="3.11.10"
+ARG PYTHON_VERSION="3.12.9"
 RUN set -ex \
     && wget --progress=dot:giga -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
     && mkdir /usr/local/src/python \
@@ -97,9 +97,7 @@ RUN set -ex \
         --enable-loadable-sqlite-extensions \
         --enable-option-checking=fatal \
         --enable-shared \
-        --with-system-expat \
-        --with-system-ffi \
-        --with-ensurepip=upgrade \
+        --with-ensurepip \
     && nproc="$(nproc)" \
     && EXTRA_CFLAGS="$(dpkg-buildflags --get CFLAGS)" \
     && LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \

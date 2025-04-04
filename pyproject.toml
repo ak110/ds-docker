@@ -1,7 +1,7 @@
 [project]
 name = "ds-docker"
 version = "0.0.1"
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "accelerate",
     "albumentations",
@@ -159,7 +159,7 @@ dependencies = [
     "rgf-python",
     "rope",
     "safety",
-    "sagemaker",
+    "sagemaker>=2.243.0",
     "schedule>=1.2",
     "scikit-image",
     "scikit-learn",
