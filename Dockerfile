@@ -174,6 +174,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     geoip-database \
     gettext-base \
     gfortran \
+    gh \
     git \
     git-filter-repo \
     git-lfs \
