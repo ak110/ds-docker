@@ -74,8 +74,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
 # 参考: https://www.open-mpi.org/software/
 FROM base-stage AS openmpi-stage
 RUN set -x \
-    && wget --progress=dot:giga -O openmpi.tar.bz2 "https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.1.tar.bz2" \
-    && echo "9aa7cb64a8b1a773cac719e700d5bb2a *openmpi.tar.bz2" | md5sum -c - \
+    && wget --progress=dot:giga -O openmpi.tar.bz2 "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.7.tar.bz2" \
+    && echo "119f2009936a403334d0df3c0d74d5595a32d99497f9b1d41e90019fee2fc2dd *openmpi.tar.bz2" | sha256sum -c - \
     && mkdir /usr/local/src/openmpi \
     && tar xjC /usr/local/src/openmpi --strip-components=1 -f openmpi.tar.bz2 \
     && rm openmpi.tar.bz2 \
