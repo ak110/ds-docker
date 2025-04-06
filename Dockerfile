@@ -66,6 +66,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     wget \
     xz-utils \
     zlib1g-dev \
+    zstd \
     && locale-gen ja_JP.UTF-8 \
     && update-locale LANG=ja_JP.UTF-8 LANGUAGE='ja_JP:ja'
 
@@ -82,30 +83,6 @@ RUN set -x \
     && cd /usr/local/src/openmpi \
     && ./configure --with-cuda --disable-mpi-fortran --disable-java --enable-orterun-prefix-by-default \
     && make -j$(nproc) all
-
-# Python
-# 参考: https://github.com/docker-library/python/blob/master/3.12/bookworm/Dockerfile
-FROM base-stage AS python-stage
-ARG PYTHON_VERSION="3.12.9"
-RUN set -ex \
-    && wget --progress=dot:giga -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
-    && mkdir /usr/local/src/python \
-    && tar -xJC /usr/local/src/python --strip-components=1 -f python.tar.xz \
-    && rm python.tar.xz \
-    && cd /usr/local/src/python \
-    && ./configure --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-        --enable-loadable-sqlite-extensions \
-        --enable-option-checking=fatal \
-        --enable-shared \
-        --with-ensurepip \
-    && nproc="$(nproc)" \
-    && EXTRA_CFLAGS="$(dpkg-buildflags --get CFLAGS)" \
-    && LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
-    && make -j "$nproc" "EXTRA_CFLAGS=${EXTRA_CFLAGS:-}" "LDFLAGS=${LDFLAGS:-}" \
-    # https://github.com/docker-library/python/issues/784
-    # prevent accidental usage of a system installed libpython of the same version
-    && rm python \
-    && make -j "$nproc" "EXTRA_CFLAGS=${EXTRA_CFLAGS:-}" "LDFLAGS=${LDFLAGS:--Wl},-rpath='\$\$ORIGIN/../lib'" python
 
 # 本体ここから。
 FROM base-stage AS main-stage
@@ -320,18 +297,18 @@ RUN set -x \
     && mpirun --version
 
 # python
-COPY --from=python-stage /usr/local/src/python /usr/local/src/python
-RUN set -ex \
-    && cd /usr/local/src/python \
-    && make install \
+# https://gregoryszorc.com/docs/python-build-standalone/main/running.html
+ARG PYTHON_VERSION=3.12.9
+ARG PYTHON_TAG=20250317
+ARG PYTHON_ARCH=x86_64_v2-unknown-linux-gnu
+RUN set -x \
+    && curl -sSL "https://github.com/astral-sh/python-build-standalone/releases/download/${PYTHON_TAG}/cpython-${PYTHON_VERSION}+${PYTHON_TAG}-${PYTHON_ARCH}-pgo+lto-full.tar.zst" -o python.tar.zst \
+    && tar -axvf python.tar.zst \
+    && cp -avn python/install/. /usr/local/ \
+    && rm -rf python.tar.zst python \
     && ldconfig \
-    && ln -s /usr/local/bin/idle3 /usr/local/bin/idle \
-    && ln -s /usr/local/bin/pydoc3 /usr/local/bin/pydoc \
-    && ln -s /usr/local/bin/python3 /usr/local/bin/python \
-    && ln -s /usr/local/bin/python3-config /usr/local/bin/python-config \
-    && ln -s /usr/local/bin/pip3 /usr/local/bin/pip \
     && export PYTHONDONTWRITEBYTECODE=1 \
-    && python3 --version
+    && python3 --version | grep -q "${PYTHON_VERSION}"
 
 # Docker <https://docs.docker.com/engine/install/debian/>
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
