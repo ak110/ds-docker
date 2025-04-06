@@ -60,24 +60,30 @@ update:
 	sed -i '/^nvidia-/d' requirements.txt
 	# PyTorchとTensorFlowでcuda系が競合するのでTensorFlowをあとでインストール
 	uv pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20"
-	uv run pyfltr --exit-zero-even-if-formatted tests
+	$(MAKE) test
 
 rebuild:
 	$(MAKE) build BUILD_ARGS="$(BUILD_ARGS) --no-cache"
 
 build: .ssh_host_keys
 	docker build --pull --progress=plain $(BUILD_ARGS) --tag=$(IMAGE_TAG) .
-	$(MAKE) test
+	$(MAKE) test-docker
 	docker images $(IMAGE_TAG)
 
 format:
+	uv run pyfltr --exit-zero-even-if-formatted --commands=fast tests
+
+test:
+	uv run pyfltr --exit-zero-even-if-formatted tests
+
+format-docker:
 	docker run --rm --interactive $(RUN_ARGS) \
 		--volume="$(CURDIR):/work:rw" \
 		--workdir="/work" \
 		--user=$(shell id -u) \
 		$(IMAGE_TAG) bash -cx "pyfltr --exit-zero-even-if-formatted --commands=fast tests"
 
-test:
+test-docker:
 	docker run --rm --interactive $(RUN_GPU_ARGS) \
 		--volume="$(CURDIR):/work:ro" \
 		--workdir="/work" \
