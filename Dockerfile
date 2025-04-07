@@ -38,6 +38,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     && apt-get upgrade --yes \
     && apt-get install --yes --no-install-recommends \
     build-essential \
+    clang \
     curl \
     libbluetooth-dev \
     libbz2-dev \
