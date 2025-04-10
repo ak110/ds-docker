@@ -38,7 +38,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     && apt-get upgrade --yes \
     && apt-get install --yes --no-install-recommends \
     build-essential \
-    clang \
     curl \
     libbluetooth-dev \
     libbz2-dev \
@@ -113,9 +112,11 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     ack-grep \
     apparmor \
     apt-file \
+    build-essential \
     automake \
     bash-completion \
     bc \
+    clang \
     bind9-host \
     bsdmainutils \
     busybox-initramfs \
@@ -200,6 +201,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     liblapack3 \
     libopenblas-dev \
     libsndfile1 \
+    libstdc++-14-dev \
     linux-base \
     locate \
     logrotate \
