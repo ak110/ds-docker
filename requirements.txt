@@ -7,7 +7,7 @@ adbc-driver-sqlite==1.5.0
 aiofiles==24.1.0
 aiohappyeyeballs==2.6.1
 aiohttp==3.11.16
-aioice==0.9.0 ; sys_platform == 'darwin'
+aioice==0.10.1 ; sys_platform == 'darwin'
 aiortc==1.11.0 ; sys_platform == 'darwin'
 aiosignal==1.3.2
 alabaster==0.7.16
@@ -36,7 +36,7 @@ augmentor==0.2.12
 authlib==1.5.2
 autoflake==2.3.1
 av==14.3.0
-awscli==1.38.28
+awscli==1.38.34
 azure-core==1.33.0
 azure-identity==1.21.0
 babel==2.17.0
@@ -45,22 +45,22 @@ bandit==1.8.3
 banks==2.1.1
 bashplotlib==0.6.5
 bcrypt==4.3.0
-beautifulsoup4==4.13.3
+beautifulsoup4==4.13.4
 better-exceptions==0.3.3
 binaryornot==0.4.4
-bitsandbytes==0.45.4
+bitsandbytes==0.45.5
 black==25.1.0
 bleach==6.2.0
 blinker==1.9.0
 blis==1.2.1
-boto3==1.37.28
-botocore==1.37.28
+boto3==1.37.34
+botocore==1.37.34
 build==1.2.2.post1
 cached-property==2.0.1
 cachetools==5.5.2
 cairocffi==1.7.1
 catalogue==2.0.10
-catboost==1.2.7
+catboost==1.2.8
 category-encoders==2.8.1
 certifi==2025.1.31
 cffi==1.17.1
@@ -79,8 +79,8 @@ comm==0.2.2
 commonmark==0.9.1
 compressed-rtf==1.0.7
 confection==0.1.5
-connectorx==0.4.2
-contourpy==1.3.1
+connectorx==0.4.3
+contourpy==1.3.2
 cookiecutter==2.6.0
 cryptography==44.0.2
 cupy-cuda11x==13.4.1
@@ -89,7 +89,7 @@ cymem==2.0.11
 cysignals==1.12.3
 dataclasses-json==0.6.7
 datasets==2.21.0
-debugpy==1.8.13
+debugpy==1.8.14
 decorator==5.2.1
 defusedxml==0.7.1
 deltalake==0.24.0
@@ -104,7 +104,7 @@ dm-tree==0.1.9
 dnspython==2.7.0
 docker==7.1.0
 docstring-parser==0.16
-docutils==0.16
+docutils==0.19
 dparse==0.6.4
 editdistance==0.8.1
 editdistance-s==1.0.0
@@ -163,28 +163,28 @@ ginza==5.2.0
 gitdb==4.0.12
 gitpython==3.1.44
 google-ai-generativelanguage==0.6.15
-google-api-core==1.34.1
-google-api-python-client==2.166.0
-google-auth==2.38.0
+google-api-core==2.24.2
+google-api-python-client==2.167.0
+google-auth==2.39.0
 google-auth-httplib2==0.2.0
-google-cloud-aiplatform==1.87.0
-google-cloud-bigquery==3.25.0
+google-cloud-aiplatform==1.88.0
+google-cloud-bigquery==3.31.0
 google-cloud-core==2.4.3
 google-cloud-resource-manager==1.14.2
-google-cloud-storage==2.14.0
+google-cloud-storage==2.19.0
 google-cloud-vision==3.10.1
 google-crc32c==1.7.1
 google-generativeai==0.8.4
 google-pasta==0.2.0
 google-resumable-media==2.7.2
-googleapis-common-protos==1.69.2
+googleapis-common-protos==1.70.0
 graphviz==0.20.3
 great-tables==0.17.0
-greenlet==3.1.1
+greenlet==3.2.0
 griffe==1.7.2
 grpc-google-iam-v1==0.14.2
 grpcio==1.71.0
-grpcio-status==1.48.2
+grpcio-status==1.71.0
 guidance==0.2.1
 guidance-stitch==0.1.4
 gunicorn==23.0.0
@@ -192,16 +192,16 @@ gviz-api==1.10.0
 h11==0.14.0
 h2==4.2.0
 h5py==3.13.0
-holidays==0.69
+holidays==0.70
 hpack==4.1.0
 html5lib==1.1
 htmltools==0.6.0
-httpcore==1.0.7
+httpcore==1.0.8
 httplib2==0.22.0
 httptools==0.6.4
 httpx==0.28.1
 httpx-sse==0.4.0
-huggingface-hub==0.30.1
+huggingface-hub==0.30.2
 humanfriendly==10.0
 hyperframe==6.1.0
 hyperopt==0.2.7
@@ -222,9 +222,9 @@ importlib-resources==6.5.2
 iniconfig==2.1.0
 ipadic==1.0.0
 ipykernel==6.29.5
-ipython==9.0.2
+ipython==9.1.0
 ipython-pygments-lexers==1.1.1
-ipywidgets==8.1.5
+ipywidgets==8.1.6
 isodate==0.7.2
 isoduration==20.11.0
 isort==6.0.1
@@ -260,7 +260,7 @@ jupyterlab-git==0.51.1
 jupyterlab-language-pack-ja-jp==4.3.post3
 jupyterlab-pygments==0.3.0
 jupyterlab-server==2.27.3
-jupyterlab-widgets==3.0.13
+jupyterlab-widgets==3.0.14
 kaggle==1.7.4.2
 kagglehub==0.3.11
 keras==3.9.2
@@ -271,42 +271,42 @@ keras2onnx==1.7.0
 kiwisolver==1.4.8
 langchain==0.3.23
 langchain-community==0.3.21
-langchain-core==0.3.51
-langchain-openai==0.3.12
+langchain-core==0.3.52
+langchain-openai==0.3.13
 langchain-text-splitters==0.3.8
 langcodes==3.5.0
 langdetect==1.0.9
-langsmith==0.3.24
+langsmith==0.3.31
 language-data==1.3.0
 lazy-loader==0.4
 lazy-object-proxy==1.10.0
 levenshtein==0.27.1
 libclang==18.1.1
 librosa==0.11.0
-lightgbm==4.5.0
+lightgbm==4.6.0
 lightning-utilities==0.14.3
-litellm==1.65.4.post1
-llama-cloud==0.1.17
-llama-cloud-services==0.6.9
-llama-index==0.12.28
+litellm==1.66.1
+llama-cloud==0.1.18
+llama-cloud-services==0.6.12
+llama-index==0.12.30
 llama-index-agent-openai==0.4.6
 llama-index-cli==0.4.1
-llama-index-core==0.12.28
+llama-index-core==0.12.30
 llama-index-embeddings-openai==0.3.1
 llama-index-indices-managed-llama-cloud==0.6.11
-llama-index-llms-openai==0.3.30
+llama-index-llms-openai==0.3.35
 llama-index-multi-modal-llms-openai==0.4.3
 llama-index-program-openai==0.3.1
 llama-index-question-gen-openai==0.3.0
 llama-index-readers-file==0.4.7
 llama-index-readers-llama-parse==0.4.0
-llama-parse==0.6.4.post1
+llama-parse==0.6.12
 llguidance==0.6.31
 llvmlite==0.44.0
 lxml==5.3.2
-mako==1.3.9
+mako==1.3.10
 marisa-trie==1.2.1
-markdown==3.7
+markdown==3.8
 markdown-it-py==3.0.0
 markdownify==1.1.0
 markupsafe==3.0.1 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
@@ -339,15 +339,15 @@ msg-parser==1.2.0
 msgpack==1.1.0
 msgpack-numpy==0.4.8
 msgraph-core==1.3.3
-msgraph-sdk==1.26.0
-multidict==6.3.2
+msgraph-sdk==1.28.0
+multidict==6.4.3
 multiprocess==0.70.16
 munch==4.0.0
 murmurhash==1.0.12
 mypy==1.15.0
 mypy-extensions==1.0.0
 namex==0.0.8
-narwhals==1.33.0
+narwhals==1.35.0
 natsort==8.4.0
 nbclient==0.10.2
 nbconvert==7.16.6
@@ -362,7 +362,7 @@ nodeenv==1.9.1
 noise==1.2.2
 nose==1.3.7
 notebook-shim==0.2.4
-numba==0.61.0
+numba==0.61.2
 numpy==1.26.4
 olefile==0.47
 omegaconf==2.3.0
@@ -370,21 +370,21 @@ onnx==1.17.0
 onnxconverter-common==1.13.0
 onnxmltools==1.13.0
 onnxruntime==1.21.0
-openai==1.70.0
+openai==1.74.0
 openapi-core==0.19.4
 openapi-schema-validator==0.6.3
 openapi-spec-validator==0.7.1
 opencv-python==4.11.0.86
 opencv-python-headless==4.11.0.86
 openpyxl==3.1.5
-opentelemetry-api==1.31.1
-opentelemetry-sdk==1.31.1
-opentelemetry-semantic-conventions==0.52b1
+opentelemetry-api==1.32.1
+opentelemetry-sdk==1.32.1
+opentelemetry-semantic-conventions==0.53b1
 opt-einsum==3.4.0
 optimum==1.24.0
 optree==0.15.0
-optuna==4.2.1
-optuna-integration==4.2.1
+optuna==4.3.0
+optuna-integration==4.3.0
 ordered-set==4.1.0
 orjson==3.10.16
 overrides==7.7.0
@@ -403,10 +403,10 @@ patsy==1.0.1
 pbr==6.1.1
 pdf2image==1.17.0
 pdfminer-six==20250327
-peft==0.15.1
+peft==0.15.2
 pexpect==4.9.0
 pi-heif==0.22.0
-pikepdf==9.6.0
+pikepdf==9.7.0
 pillow==10.4.0
 pillow-heif==0.22.0
 pip==25.0.1
@@ -418,10 +418,10 @@ plac==1.4.5
 platformdirs==4.3.7
 plotly==6.0.1
 pluggy==1.5.0
-polars==1.26.0
+polars==1.27.1
 pooch==1.8.2
-pox==0.3.5
-ppft==1.7.6.9
+pox==0.3.6
+ppft==1.7.7
 prance==23.6.21.0
 pre-commit==4.2.0
 preshed==3.0.9
@@ -430,10 +430,10 @@ proglog==0.1.11
 progressbar2==4.5.0
 prometheus-client==0.21.1
 promise==2.3
-prompt-toolkit==3.0.50
+prompt-toolkit==3.0.51
 propcache==0.3.1
 proto-plus==1.26.1
-protobuf==3.20.3
+protobuf==5.29.4
 psutil==6.0.0 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 psutil==6.1.1 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
 ptk==1.3.8
@@ -452,7 +452,7 @@ pycodestyle==2.11.1
 pycparser==2.22
 pycryptodome==3.22.0
 pydantic==2.9.2 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
-pydantic==2.11.2 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
+pydantic==2.11.3 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 pydantic-core==2.23.4 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
 pydantic-core==2.33.1 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 pydantic-extra-types==2.10.3
@@ -461,7 +461,7 @@ pydocstyle==6.3.0
 pydot==3.0.4
 pyee==13.0.0 ; sys_platform == 'darwin'
 pyflakes==3.2.0
-pyfltr==1.7.3
+pyfltr==1.8.0
 pygments==2.19.1
 pyiceberg==0.9.0
 pyjwt==2.10.1
@@ -483,6 +483,7 @@ pyproject-hooks==1.2.0
 pyreadline3==3.5.4 ; sys_platform == 'win32'
 pytesseract==0.3.13
 pytest==8.3.5
+pytest-asyncio==0.26.0
 pytest-cookies==0.7.0
 pytest-mock==3.14.0
 pytest-timeout==2.3.1
@@ -499,7 +500,7 @@ python-oxmsg==0.0.2
 python-pptx==1.0.2
 python-slugify==8.0.4
 python-utils==3.9.1
-pytilpack==1.16.2
+pytilpack==1.17.3
 pytoolconfig==1.3.1
 pytorch-ignite==0.5.2
 pytorch-lightning==2.5.1
@@ -533,8 +534,8 @@ safety==3.2.9 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 safety==3.3.1 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
 safety-schemas==0.0.5 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 safety-schemas==0.0.11 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
-sagemaker==2.243.0
-sagemaker-core==1.0.28
+sagemaker==2.243.1
+sagemaker-core==1.0.29
 schedule==1.2.2
 schema==0.7.7
 scikit-base==0.12.2
@@ -546,9 +547,9 @@ scipy==1.15.2 ; sys_platform == 'darwin'
 seaborn==0.13.2
 segmentation-models==1.0.1
 semantic-kernel==1.20.0 ; sys_platform != 'darwin'
-semantic-kernel==1.27.1 ; sys_platform == 'darwin'
+semantic-kernel==1.28.0 ; sys_platform == 'darwin'
 send2trash==1.8.3
-sentence-transformers==4.0.2
+sentence-transformers==4.1.0
 sentencepiece==0.2.0
 setup-cfg-fmt==2.8.0
 setuptools==78.1.0
@@ -573,10 +574,10 @@ soxr==0.5.0.post1
 spacy==3.8.5
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
-sphinx==5.3.0
+sphinx==7.3.7
 sphinx-autobuild==2024.10.3
-sphinx-autodoc-typehints==1.23.0
-sphinx-rtd-theme==2.0.0
+sphinx-autodoc-typehints==2.3.0
+sphinx-rtd-theme==3.0.2
 sphinxcontrib-applehelp==2.0.0
 sphinxcontrib-devhelp==2.0.0
 sphinxcontrib-htmlhelp==2.1.0
@@ -589,13 +590,13 @@ sqlalchemy-stubs==0.4
 srsly==2.5.1
 sse-starlette==2.2.1
 stack-data==0.6.3
-starlette==0.46.1
+starlette==0.46.2
 statsmodels==0.14.4
 std-uritemplate==2.0.3
 stevedore==5.4.1
 stickytape==0.2.1
 strictyaml==1.7.3
-stringzilla==3.12.3
+stringzilla==3.12.4
 striprtf==0.0.26
 sudachidict-core==20250129
 sudachipy==0.6.10
@@ -605,11 +606,11 @@ tblib==3.1.0
 tenacity==9.1.2
 tensorboard==2.19.0
 tensorboard-data-server==0.7.2
-tensorboard-plugin-profile==2.19.0
+tensorboard-plugin-profile==2.13.0
 tensorflow==2.19.0
 tensorflow-datasets==4.9.8
 tensorflow-hub==0.16.1
-tensorflow-metadata==0.22.2
+tensorflow-metadata==1.17.1
 tensorpack==0.11
 termcolor==3.0.1
 terminado==0.18.1
@@ -617,7 +618,7 @@ text-unidecode==1.3
 textdistance==4.6.3
 tf-keras==2.19.0
 tf2cv==0.0.18
-tf2onnx==1.16.1
+tf2onnx==1.8.4
 thinc==8.3.4
 threadpoolctl==3.6.0
 tidecv==1.0.1
@@ -634,24 +635,25 @@ tomlkit==0.13.2
 torch==2.6.0
 torchaudio==2.6.0 ; platform_machine == 'aarch64' and sys_platform == 'linux'
 torchaudio==2.6.0+cu126 ; platform_machine != 'aarch64' or sys_platform != 'linux'
-torchmetrics==1.7.0
+torchmetrics==1.7.1
 torchtext==0.18.0
 torchvision==0.21.0 ; platform_machine == 'aarch64' and sys_platform == 'linux'
 torchvision==0.21.0+cu126 ; platform_machine != 'aarch64' or sys_platform != 'linux'
 tornado==6.4.2
 tqdm==4.67.1
 traitlets==5.14.3
-transformers==4.51.0
+transformers==4.51.3
 transformers-stream-generator==0.0.5
-translatedoc==1.5.2
-triton==3.2.0
+translatedoc==1.6.0
+triton==3.2.0 ; (platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')
+triton==3.3.0 ; (platform_machine == 'aarch64' and sys_platform == 'linux') or sys_platform == 'darwin'
 trl==0.15.2
 tslearn==0.6.3
 typer==0.15.2
 types-click==7.1.8
 types-flask==1.1.6
 types-jinja2==2.11.9
-types-markdown==3.7.0.20250322
+types-markdown==3.8.0.20250415
 types-markupsafe==1.1.10
 types-pillow==10.2.0.20240822
 types-python-dateutil==2.9.0.20241206
@@ -659,7 +661,7 @@ types-pytz==2025.2.0.20250326
 types-pyyaml==6.0.12.20250402
 types-requests==2.32.0.20250328
 types-werkzeug==1.0.9
-typing-extensions==4.13.1
+typing-extensions==4.13.2
 typing-inspect==0.9.0
 typing-inspection==0.4.0 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 tzdata==2025.2
@@ -671,17 +673,17 @@ unidic==1.1.0
 unidic-lite==1.0.8
 unstructured==0.17.2
 unstructured-client==0.28.1 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
-unstructured-client==0.32.1 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
+unstructured-client==0.32.3 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 unstructured-inference==0.8.10
 unstructured-pytesseract==0.3.15
 uri-template==1.3.0
 uritemplate==4.1.1
-urllib3==2.3.0
-uvicorn==0.34.0
+urllib3==2.4.0
+uvicorn==0.34.1
 uvloop==0.21.0 ; platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32'
 virtualenv==20.30.0
 wasabi==0.10.1
-watchfiles==1.0.4
+watchfiles==1.0.5
 wcwidth==0.2.13
 weasel==0.4.1
 webcolors==24.11.1
@@ -691,7 +693,7 @@ websockets==15.0.1
 werkzeug==3.1.3
 wget==3.2
 wheel==0.45.1
-widgetsnbextension==4.0.13
+widgetsnbextension==4.0.14
 woodwork==0.31.0
 wrapt==1.17.2
 xgboost==3.0.0
