@@ -25,7 +25,7 @@ dependencies = [
     "cookiecutter",
     "cupy-cuda11x",
     "cysignals",
-    "datasets<3",
+    "datasets",
     "deltalake>=0.24,<0.25",
     "diskcache",
     "editdistance",

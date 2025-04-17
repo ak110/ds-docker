@@ -10,12 +10,12 @@ certifi==2025.1.31
 cffi==1.17.1 ; platform_python_implementation == 'PyPy'
 charset-normalizer==3.4.1
 colorama==0.4.6 ; sys_platform == 'win32'
-datasets==2.21.0
+datasets==3.5.0
 dill==0.3.8
 filelock==3.12.4 ; python_full_version >= '3.12.4' and sys_platform == 'darwin'
 filelock==3.16.1 ; python_full_version < '3.12.4' or sys_platform != 'darwin'
 frozenlist==1.5.0
-fsspec==2024.6.1
+fsspec==2024.12.0
 gptqmodel==2.2.0
 huggingface-hub==0.30.2
 idna==3.10
