@@ -70,20 +70,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     && locale-gen ja_JP.UTF-8 \
     && update-locale LANG=ja_JP.UTF-8 LANGUAGE='ja_JP:ja'
 
-# OpenMPI
-# 参考: https://github.com/horovod/horovod/blob/master/docker/horovod/Dockerfile
-# 参考: https://www.open-mpi.org/software/
-FROM base-stage AS openmpi-stage
-RUN set -x \
-    && wget --progress=dot:giga -O openmpi.tar.bz2 "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.7.tar.bz2" \
-    && echo "119f2009936a403334d0df3c0d74d5595a32d99497f9b1d41e90019fee2fc2dd *openmpi.tar.bz2" | sha256sum -c - \
-    && mkdir /usr/local/src/openmpi \
-    && tar xjC /usr/local/src/openmpi --strip-components=1 -f openmpi.tar.bz2 \
-    && rm openmpi.tar.bz2 \
-    && cd /usr/local/src/openmpi \
-    && ./configure --with-cuda --disable-mpi-fortran --disable-java --enable-orterun-prefix-by-default \
-    && make -j$(nproc) all
-
 # 本体ここから。
 FROM base-stage AS main-stage
 ARG DEBIAN_FRONTEND=noninteractive
@@ -290,14 +276,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     zsh \
     # MeCabの標準はIPA辞書にしておく
     && update-alternatives --set mecab-dictionary /var/lib/mecab/dic/ipadic-utf8
-
-# OpenMPI
-COPY --from=openmpi-stage /usr/local/src/openmpi /usr/local/src/openmpi
-RUN set -x \
-    && cd /usr/local/src/openmpi \
-    && make -j$(nproc) install \
-    && ldconfig \
-    && mpirun --version
 
 # python
 # https://gregoryszorc.com/docs/python-build-standalone/main/running.html
