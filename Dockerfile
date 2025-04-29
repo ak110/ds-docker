@@ -434,6 +434,8 @@ RUN set -x \
     && echo 'ClientAliveInterval 15' >> /etc/ssh/sshd_config.d/docker.conf \
     && echo 'ClientAliveCountMax 10' >> /etc/ssh/sshd_config.d/docker.conf \
     && /usr/sbin/sshd -t \
+    # NCCL設定
+    && echo 'NCCL_DEBUG=INFO' >> /etc/nccl.conf \
     # 環境変数設定
     && echo 'export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH' > /etc/profile.d/docker.sh \
     && echo 'export BETTER_EXCEPTIONS=1' >> /etc/profile.d/docker.sh \
