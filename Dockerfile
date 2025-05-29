@@ -267,6 +267,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
     valgrind \
     vim \
     whiptail \
+    wrk \
     xauth \
     xclip \
     xdg-user-dirs \
@@ -318,6 +319,7 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && npm -g config set cafile /etc/ssl/certs/ca-certificates.crt \
     && npm -g update \
     && npm -g install \
+        @openai/codex \
         aicommits \
         eslint \
         npm-check-updates \
