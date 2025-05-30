@@ -24,8 +24,8 @@ RUN set -x \
 # aptその1
 # pyenv用: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 # その他？: libpng-dev, libjpeg-dev
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
-    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=locked \
     set -x \
     && sed -ie 's@http://archive.ubuntu.com/ubuntu/@http://ftp.riken.go.jp/Linux/ubuntu/@g' /etc/apt/sources.list \
     && sed -ie 's@^deb-src@# deb-src@g' /etc/apt/sources.list \
@@ -75,8 +75,8 @@ FROM base-stage AS main-stage
 ARG DEBIAN_FRONTEND=noninteractive
 
 # unminimize
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
-    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=locked \
     set -x \
     && yes | unminimize
 
@@ -89,8 +89,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
 # その他？: liblapack3 libatlas3-base libgfortran5
 # torch? : libcusparselt-dev
 # <https://github.com/scipy/scipy/issues/9005>: gfortran libopenblas-dev liblapack-dev
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
-    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=locked \
     set -x \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
@@ -280,8 +280,9 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
 
 # python
 # https://gregoryszorc.com/docs/python-build-standalone/main/running.html
-ARG PYTHON_VERSION=3.12.9
-ARG PYTHON_TAG=20250317
+# https://github.com/astral-sh/python-build-standalone/releases
+ARG PYTHON_VERSION=3.12.10
+ARG PYTHON_TAG=20250521
 ARG PYTHON_ARCH=x86_64_v2-unknown-linux-gnu
 RUN set -x \
     && curl -sSL "https://github.com/astral-sh/python-build-standalone/releases/download/${PYTHON_TAG}/cpython-${PYTHON_VERSION}+${PYTHON_TAG}-${PYTHON_ARCH}-pgo+lto-full.tar.zst" -o python.tar.zst \
@@ -291,17 +292,6 @@ RUN set -x \
     && ldconfig \
     && export PYTHONDONTWRITEBYTECODE=1 \
     && python3 --version | grep -q "${PYTHON_VERSION}"
-
-# Docker <https://docs.docker.com/engine/install/debian/>
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=private \
-    --mount=type=cache,target=/var/cache/apt/archives,sharing=private \
-    set -x \
-    && mkdir -p /etc/apt/keyrings \
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-        $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
-    && apt-get update \
-    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # nodejs
 COPY --from=node:lts /usr/local/bin/node /usr/local/bin/
@@ -330,6 +320,23 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && yarn config set proxy $http_proxy -g \
     && yarn config set https-proxy $https_proxy -g \
     && yarn config set strict-ssl false -g
+
+# Docker <https://docs.docker.com/engine/install/debian/>
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=locked \
+    set -x \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
+    && apt-get update \
+    && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Azure CLI
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    --mount=type=cache,target=/var/cache/apt/archives,sharing=locked \
+    set -x \
+    && curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # devpi-server用
 ARG PIP_TRUSTED_HOST=""
