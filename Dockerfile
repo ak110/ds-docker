@@ -356,7 +356,7 @@ RUN --mount=type=cache,target=/root/.cache set -ex \
         uv \
         wheel \
         wrapt \
-    && poetry self add poetry-plugin-export \
+    && poetry self add poetry-plugin-export poetry-plugin-shell \
     ;
 COPY requirements.txt /usr/local/src/requirements.txt
 COPY requirements.step2.txt /usr/local/src/requirements.step2.txt
