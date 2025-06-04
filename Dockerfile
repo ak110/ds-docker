@@ -309,6 +309,7 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && npm -g config set cafile /etc/ssl/certs/ca-certificates.crt \
     && npm -g update \
     && npm -g install \
+        @anthropic-ai/claude-code \
         @openai/codex \
         aicommits \
         eslint \
