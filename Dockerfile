@@ -223,6 +223,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     powermgmt-base \
     psmisc \
     publicsuffix \
+    ripgrep \
     rsync \
     rsyslog \
     samba \
