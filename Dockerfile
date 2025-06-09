@@ -449,8 +449,11 @@ RUN set -x \
     && echo 'NCCL_DEBUG=INFO' >> /etc/nccl.conf \
     # 環境変数設定
     && echo 'export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH' > /etc/profile.d/docker.sh \
+    && echo 'export PYTHONIOENCODING=utf-8' >> /etc/profile.d/docker.sh \
+    && echo 'export PYTHONDONTWRITEBYTECODE=1' >> /etc/profile.d/docker.sh \
     && echo 'export BETTER_EXCEPTIONS=1' >> /etc/profile.d/docker.sh \
     && echo 'export TF_FORCE_GPU_ALLOW_GROWTH=true' >> /etc/profile.d/docker.sh \
+    && echo 'export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python' >> /etc/profile.d/docker.sh \
     # sudoでhttp_proxyなどが引き継がれるようにしておく
     && echo 'Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy PIP_TRUSTED_HOST PIP_INDEX_URL PIP_ROOT_USER_ACTION SSL_CERT_FILE PIP_CERT REQUESTS_CA_BUNDLE"' > /etc/sudoers.d/docker \
     && echo 'Defaults always_set_home' >> /etc/sudoers.d/docker \
