@@ -56,6 +56,7 @@ update:
 	uv sync --upgrade --group=step2
 	# PyTorchとTensorFlowでcuda系が競合するのでTensorFlowをあとでインストール
 	uv pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20"
+	uv run pre-commit autoupdate
 	$(MAKE) test
 
 rebuild:
