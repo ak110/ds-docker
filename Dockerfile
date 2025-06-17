@@ -349,26 +349,16 @@ ARG PIP_DEFAULT_TIMEOUT=180
 ARG PIP_ROOT_USER_ACTION=ignore
 
 # pip
-RUN --mount=type=cache,target=/root/.cache set -ex \
+RUN --mount=type=cache,target=/root/.cache \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    set -x \
     && pip install --upgrade pip \
-    && pip install \
-        cython \
-        pip_system_certs \
-        poetry \
-        uv \
-        wheel \
-        wrapt \
-    && poetry self add poetry-plugin-export poetry-plugin-shell \
-    ;
-COPY requirements.txt /usr/local/src/requirements.txt
-COPY requirements.step2.txt /usr/local/src/requirements.step2.txt
-RUN --mount=type=cache,target=/root/.cache set -ex \
-    && pip install --upgrade pip \
-    && pip install --requirement /usr/local/src/requirements.txt \
-        --extra-index-url=https://download.pytorch.org/whl/cu126 \
-    && pip install --no-build-isolation --requirement /usr/local/src/requirements.step2.txt \
-        --extra-index-url=https://download.pytorch.org/whl/cu126 \
+    && pip install pip_system_certs uv \
+    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --no-group=step2 \
+    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --upgrade --group=step2 \
     && pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20" \
+    && poetry self add poetry-plugin-export poetry-plugin-shell \
     ;
 
 # TFがエラーにならないことの確認

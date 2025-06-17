@@ -54,10 +54,6 @@ help:
 update:
 	uv sync --no-group=step2
 	uv sync --upgrade --group=step2
-	uv export --frozen --no-hashes --no-annotate --no-group=step2 > requirements.txt
-	uv export --frozen --no-hashes --no-annotate --only-group=step2 > requirements.step2.txt
-	# nvidia-*系のパッケージがPyTorchのindexとPyPIの両方にあって変なことになるので削除しちゃう
-	sed -i '/^nvidia-/d' requirements.txt
 	# PyTorchとTensorFlowでcuda系が競合するのでTensorFlowをあとでインストール
 	uv pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20"
 	$(MAKE) test
