@@ -356,7 +356,7 @@ RUN --mount=type=cache,target=/root/.cache \
     && pip install --upgrade pip \
     && pip install pip_system_certs uv \
     && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --no-group=step2 \
-    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --upgrade --group=step2 \
+    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --group=step2 \
     && pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20" \
     && poetry self add poetry-plugin-export poetry-plugin-shell \
     ;

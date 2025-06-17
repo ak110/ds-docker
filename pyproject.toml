@@ -94,7 +94,6 @@ dependencies = [
     "mecab-python3",
     "motpy",
     "moviepy>=2.0",
-    "mpi4py",
     "msal>=1.25",
     "msg-parser[rtf]>=1.2",
     "msgraph-sdk>=1.0",
