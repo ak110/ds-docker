@@ -311,6 +311,7 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && npm -g update \
     && npm -g install \
         @anthropic-ai/claude-code \
+        @biomejs/biome \
         @google/gemini-cli \
         @openai/codex \
         aicommits \
