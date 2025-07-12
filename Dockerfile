@@ -354,8 +354,7 @@ RUN --mount=type=cache,target=/root/.cache \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     set -x \
-    && pip install --upgrade pip \
-    && pip install pip_system_certs uv \
+    && pip install --upgrade pip pip_system_certs uv \
     && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --no-group=step2 \
     && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --group=step2 \
     && pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20" \
@@ -439,14 +438,14 @@ RUN set -x \
     # NCCL設定
     && echo 'NCCL_DEBUG=INFO' >> /etc/nccl.conf \
     # 環境変数設定
-    && echo 'export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH' > /etc/profile.d/docker.sh \
-    && echo 'export PYTHONIOENCODING=utf-8' >> /etc/profile.d/docker.sh \
-    && echo 'export PYTHONDONTWRITEBYTECODE=1' >> /etc/profile.d/docker.sh \
-    && echo 'export BETTER_EXCEPTIONS=1' >> /etc/profile.d/docker.sh \
-    && echo 'export TF_FORCE_GPU_ALLOW_GROWTH=true' >> /etc/profile.d/docker.sh \
-    && echo 'export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python' >> /etc/profile.d/docker.sh \
+    && echo "export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" > /etc/environment \
+    && echo "export PYTHONIOENCODING=utf-8" >> /etc/environment \
+    && echo "export PYTHONDONTWRITEBYTECODE=1" >> /etc/environment \
+    && echo "export BETTER_EXCEPTIONS=1" >> /etc/environment \
+    && echo "export TF_FORCE_GPU_ALLOW_GROWTH=true" >> /etc/environment \
+    && echo "export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python" >> /etc/environment \
     # sudoでhttp_proxyなどが引き継がれるようにしておく
-    && echo 'Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy PIP_TRUSTED_HOST PIP_INDEX_URL PIP_ROOT_USER_ACTION SSL_CERT_FILE PIP_CERT REQUESTS_CA_BUNDLE"' > /etc/sudoers.d/docker \
+    && echo 'Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy PIP_TRUSTED_HOST PIP_INDEX_URL SSL_CERT_FILE PIP_CERT REQUESTS_CA_BUNDLE"' > /etc/sudoers.d/docker \
     && echo 'Defaults always_set_home' >> /etc/sudoers.d/docker \
     # $RUN_USERをパスワード無しでsudoできるようにしておく
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/docker \
