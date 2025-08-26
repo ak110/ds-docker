@@ -25,6 +25,7 @@ dependencies = [
     "cookiecutter",
     "cupy-cuda11x",
     "cysignals",
+    "cython>=3.1.2",
     "datasets",
     "deltalake>=0.24,<0.25",
     "diskcache",
@@ -119,12 +120,13 @@ dependencies = [
     "pathvalidate>=3.2",
     "peft",
     "pillow>=10.2",
-    "pip", # for gptqmodel
-    "pip-tools",
+    "pip",
     "pip-system-certs",
+    "pip-tools",
     "pipdeptree",
     "pipenv",
     "plotly",
+    "poetry>=2.1.3",
     "polars[all]>=1.12",
     "pre-commit",
     "pretrainedmodels",
@@ -179,7 +181,6 @@ dependencies = [
     "sphinx-autobuild",
     "sphinx-autodoc-typehints",
     "sphinx_rtd_theme",
-    "sqlalchemy-stubs",
     "sqlalchemy[mypy]>=2.0",
     "sse-starlette",
     "stickytape",
@@ -223,18 +224,16 @@ dependencies = [
     "ulid-py>=1.1",
     "umap-learn",
     "unstructured[all-docs]>=0.16.8",
-    # "vllm>=0.7.3",  # depends on torch==2.5.1
+    "uv>=0.7.13",
     "wheel>=0.37",
+    "wrapt>=1.17.2",
     "xgboost>=1.7.6",
     "xlrd",
     "xlsx2csv>=0.8",
     "xlsxwriter>=3.1",
     "xlwt",
     "yapf",
-    "cython>=3.1.2",
-    "poetry>=2.1.3",
-    "uv>=0.7.13",
-    "wrapt>=1.17.2",
+    # "vllm>=0.7.3",  # depends on torch==2.5.1
 ]
 
 [dependency-groups]

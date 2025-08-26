@@ -16,10 +16,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 RUN set -x \
     && rm /etc/apt/apt.conf.d/docker-gzip-indexes \
-    && rm /etc/apt/apt.conf.d/docker-no-languages \
-    # libcuda.so.1を参照できるようにする
-    && echo '/usr/local/cuda/compat' > /etc/ld.so.conf.d/nvidia-compat.conf \
-    && ldconfig
+    && rm /etc/apt/apt.conf.d/docker-no-languages
 
 # aptその1
 # pyenv用: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
@@ -310,17 +307,16 @@ RUN --mount=type=cache,target=/root/.npm set -x \
     && npm -g config set cafile /etc/ssl/certs/ca-certificates.crt \
     && npm -g update \
     && npm -g install \
-        @anthropic-ai/claude-code \
-        @biomejs/biome \
-        @google/gemini-cli \
-        @openai/codex \
-        aicommits \
-        eslint \
-        npm-check-updates \
-        opencommit \
-        prettier \
-        pyright \
-        xo \
+    @anthropic-ai/claude-code \
+    @biomejs/biome \
+    @google/gemini-cli \
+    aicommits \
+    eslint \
+    npm-check-updates \
+    opencommit \
+    prettier \
+    pyright \
+    xo \
     && yarn config set proxy $http_proxy -g \
     && yarn config set https-proxy $https_proxy -g \
     && yarn config set strict-ssl false -g
@@ -332,7 +328,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-        $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && apt-get update \
     && apt-get install --yes --no-install-recommends docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
@@ -355,9 +351,10 @@ RUN --mount=type=cache,target=/root/.cache \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     set -x \
-    && pip install --upgrade pip pip_system_certs uv \
-    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --no-group=step2 \
-    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --group=step2 \
+    && export SETUPTOOLS_USE_DISTUTILS=stdlib \
+    && pip install --upgrade pip pip_system_certs\<5 uv \
+    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --link-mode=copy --no-group=step2 \
+    && UV_PROJECT_ENVIRONMENT=/usr/local uv sync --frozen --link-mode=copy --group=step2 \
     && pip install --upgrade "tensorflow[and-cuda]>=2.19,<2.20" \
     && poetry self add poetry-plugin-export poetry-plugin-shell \
     ;
