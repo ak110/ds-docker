@@ -198,6 +198,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     mecab-jumandic-utf8 \
     mtr-tiny \
     nano \
+    ncdu \
     net-tools \
     netbase \
     netcat-openbsd \
